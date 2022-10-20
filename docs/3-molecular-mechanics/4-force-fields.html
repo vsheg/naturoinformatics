@@ -123,7 +123,7 @@ $$
 \def\E{\exists}
 \def\To{\Rightarrow}
 \def\dag{\dagger}
-\def\AA{\angstrom}
+\def\AA{\unicode{x212B}}
 \def\const{\rm{const}}
 \def\t{\text}
 \def\ub{\underbrace}
@@ -217,6 +217,71 @@ $$
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../3-molecular-mechanics/5-trajectories.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Анализ траекторий</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Ускоренный семплинг</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../5-enhanced-sampling/1-metadynamics.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Метадинамика</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">Виртуальный скрининг</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../6-virtual-screening/1-docking.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Методы расчёта свободной энергии</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">Рассчёт свободной энергии</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../7-free-energy-calculation/1-fep.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Теория возмущений свободной энергии</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../7-free-energy-calculation/2-alchemy.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Вычислительная алхимия</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">Хемоинформатика</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../8-chemoinformatics/1-chemoinformatics.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Хемоинформатика</span></a>
   </div>
 </li>
       </ul>
@@ -399,7 +464,7 @@ U_\t{LJ}(r) = \epsilon_{\ce X, \ce Y} \left\{ \left(\dfrac{r^\t{min}_{\ce X, \ce
 \]</span> в силовых полях <code>CHARMM</code> и <code>AMBER</code> аналогично вычисляется <span class="math inline">\(\epsilon_{\ce X,\ce Y}\)</span>, а <span class="math inline">\(r^{\min}_{\ce X,\ce Y}\)</span> как среднее арифметическое: <span class="math display">\[
 r^{\min}_{\ce X,\ce Y} = \dfrac 1 2 ( r^{\min}_{\ce X,\ce X} + r^{\min}_{\ce Y,\ce Y} ).
 \]</span></p></li>
-<li><p>Поскольку параметры потенциала вычисляются для пар разных атомов по весьма простым правилам, для лучшей воспроизводимости экспериментальных барьеров вращения торсионных углов в разных СП вводятся масштабирующие множители к <strong>1-4 взаимодействиям</strong>. В <code>AMBER</code> величина кулоновских и леннардджонсоновских взаимодействия умножаются на <span class="math inline">\(\nicefrac 1 2\)</span> и <span class="math inline">\(\nicefrac 5 6\)</span> соответственно, в <code>OPLS-AA</code> оба на <span class="math inline">\(\nicefrac 1 2\)</span>, <code>GROMOS</code> и <code>CHARMM</code> применяют разные корректировки к разным парам атомов.</p></li>
+<li><p>Поскольку параметры потенциала вычисляются для пар разных атомов по весьма простым правилам, для лучшей воспроизводимости экспериментальных барьеров вращения торсионных углов в разных СП вводятся масштабирующие множители к <strong>1-4 взаимодействиям</strong>. В <code>AMBER</code> величина кулоновских и леннардджонсоновских взаимодействия умножаются на <span class="math inline">\(1 / 2\)</span> и <span class="math inline">\(5 / 6\)</span> соответственно, в <code>OPLS-AA</code> оба на <span class="math inline">\(1 / 2\)</span>, <code>GROMOS</code> и <code>CHARMM</code> применяют разные корректировки к разным парам атомов.</p></li>
 <li><p>Для лучшего описания пар торсионных углов <span class="math inline">\(\alpha\)</span> и <span class="math inline">\(\beta\)</span> в <code>CHARMM</code> (и затем в других СП) появились CMAP<a href="#fn15" class="footnote-ref" id="fnref15" role="doc-noteref"><sup>15</sup></a> — дискретные энергетические поправки, представляющий собой матрицы из чисел для всех значений пары двугранных углов <span class="math inline">\(\alpha\)</span> и <span class="math inline">\(\beta\)</span> с шагом <span class="math inline">\(15^\circ\)</span>, т.е. <span class="math display">\[
 (\delta U)_{i,j} \quad \colon \quad \alpha_i, \beta_j = -180^\circ, -165^\circ, \cdots, +165, +180^\circ,
 \]</span> на основе этой сетки конструируется непрерывная функция, которая используется для коррекции энергии <span class="citation" data-cites="Bjelkmar2010">[<a href="#ref-Bjelkmar2010" role="doc-biblioref">11</a>]</span>.</p></li>
@@ -505,7 +570,7 @@ E_p = \dfrac 1 2 \sum_i \dfrac {\bm \mu_i^2}{\alpha_i}.
 <p>Важной задачей является моделирования сворачивания белков, однако при текущей доступности ресурсов классическая МД ограничена размером системы и временем её моделирования, поэтому изучению этим методом поддаётся лишь малое множество объектов — небольшие быстро сворачивающиеся белки; появление КЗ СП обусловлено желанием перенести МД на масштабы и времена бóльших биологических систем.</p>
 <div id="fig-coarse-grained-representation" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><a href="../imgs/coarse-grained-representation.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Представление пептида в различных крупнозернистых подходах @Kmiecik2016"><img src="../imgs/coarse-grained-representation.png" class="img-fluid figure-img" style="width:50.0%"></a></p>
+<p><a href="../imgs/coarse-grained-representation.png" class="lightbox" title="Представление пептида в различных крупнозернистых подходах @Kmiecik2016" data-gallery="quarto-lightbox-gallery-1"><img src="../imgs/coarse-grained-representation.png" class="img-fluid figure-img" style="width:50.0%"></a></p>
 <p></p><figcaption class="figure-caption">Рисунок&nbsp;4.1: Представление пептида в различных крупнозернистых подходах <span class="citation" data-cites="Kmiecik2016">[<a href="#ref-Kmiecik2016" role="doc-biblioref">7</a>]</span></figcaption><p></p>
 </figure>
 </div>
@@ -841,7 +906,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   </div>
 </nav>
 </div> <!-- /content -->
-<script>var lightboxQuarto = GLightbox({"selector":".lightbox","openEffect":"zoom","closeEffect":"zoom","descPosition":"bottom","loop":true});</script>
+<script>var lightboxQuarto = GLightbox({"selector":".lightbox","descPosition":"bottom","openEffect":"zoom","loop":true,"closeEffect":"zoom"});</script>
 
 
 

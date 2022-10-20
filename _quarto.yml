@@ -13,6 +13,7 @@ book:
   title: "*Естество*информатика"
   subtitle: Вычислительная химия и биология
   author: Всеволод Щеголев
+  google-analytics: "G-JZGJWN0T0F"
   sidebar:
     logo: assets/logo.svg
     contents:
@@ -33,7 +34,19 @@ book:
         - 3-molecular-mechanics/3-micro--and-macroparameters.qmd
         - 3-molecular-mechanics/4-force-fields.qmd
         - 3-molecular-mechanics/5-trajectories.qmd
-  google-analytics: "G-JZGJWN0T0F"
+    - part: Ускоренный семплинг
+      chapters:
+        - 5-enhanced-sampling/1-metadynamics.qmd
+    - part: "Виртуальный скрининг"
+      chapters:
+        - 6-virtual-screening/1-docking.qmd
+    - part: "Рассчёт свободной энергии"
+      chapters:
+        - 7-free-energy-calculation/1-fep.qmd
+        - 7-free-energy-calculation/2-alchemy.qmd
+    - part: "Хемоинформатика"
+      chapters:
+        - 8-chemoinformatics/1-chemoinformatics.qmd
 
 bibliography: assets/citation.yaml
 reference-section-title: Источники

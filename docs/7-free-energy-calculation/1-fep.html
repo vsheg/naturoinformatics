@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Естествоинформатика - 2&nbsp; Интегрирование уравнений движения</title>
+<title>Естествоинформатика - 8&nbsp; Теория возмущений свободной энергии</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -49,8 +49,8 @@ div.csl-indent {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../3-molecular-mechanics/3-micro--and-macroparameters.html" rel="next">
-<link href="../3-molecular-mechanics/1-interactions.html" rel="prev">
+<link href="../7-free-energy-calculation/2-alchemy.html" rel="next">
+<link href="../6-virtual-screening/1-docking.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -142,7 +142,7 @@ $$
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Интегрирование уравнений движения</span></h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Теория возмущений свободной энергии</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -198,7 +198,7 @@ $$
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../3-molecular-mechanics/2-integration.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Интегрирование уравнений движения</span></a>
+  <a href="../3-molecular-mechanics/2-integration.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Интегрирование уравнений движения</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -258,7 +258,7 @@ $$
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../7-free-energy-calculation/1-fep.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Теория возмущений свободной энергии</span></a>
+  <a href="../7-free-energy-calculation/1-fep.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Теория возмущений свободной энергии</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -289,7 +289,8 @@ $$
     <h2 id="toc-title">Разделы</h2>
    
   <ul>
-  <li><a href="#bibliography" id="toc-bibliography" class="nav-link active" data-scroll-target="#bibliography">Источники</a></li>
+  <li><a href="#термодинамическое-интегрирование" id="toc-термодинамическое-интегрирование" class="nav-link active" data-scroll-target="#термодинамическое-интегрирование"><span class="toc-section-number">9</span>  Термодинамическое интегрирование</a></li>
+  <li><a href="#bibliography" id="toc-bibliography" class="nav-link" data-scroll-target="#bibliography">Источники</a></li>
   </ul>
 </nav>
 </nav>
@@ -301,7 +302,7 @@ $$
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Интегрирование уравнений движения</span></h1>
+<h1 class="title d-none d-lg-block"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Теория возмущений свободной энергии</span></h1>
 </div>
 
 
@@ -316,16 +317,76 @@ $$
 
 </header>
 
-<div class="page-columns page-full"><p>Задача МД сводится к решению дифференциального уравнения Ньютона <a href="1-interactions.html#eq-newton2law">Ур.&nbsp;<span>1.1</span></a> для каждой частицы, всего таких уравнений <span class="math inline">\(N\)</span> в векторной форме или <span class="math inline">\(3N\)</span> в скалярной (для трёхмерного пространства), решением системы будут <span class="math inline">\(3N\)</span> проекций координат<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> <span class="math inline">\(r_{x,i}(t)\)</span>, <span class="math inline">\(r_{y,i}(t)\)</span>, <span class="math inline">\(r_{z,i}(t)\)</span> и <span class="math inline">\(3N\)</span> проекций скоростей <span class="math inline">\(v {x,i}(t)\)</span>, <span class="math inline">\(v_{y,i}(t)\)</span>, <span class="math inline">\(v_{z,i}(t)\)</span> для всех частиц системы в каждый момент времени.</p><div class="no-row-height column-margin column-container"><li id="fn1"><p><sup>1</sup>&nbsp;в данном случае декартовых</p></li></div></div>
-<p>Известно, что аналитический аппарат классической механики не может справиться с решением подобной задачи уже при <span class="math inline">\(N=3\)</span> (задача трёх тел), поэтому здесь применимы только численные подходы: временна́я переменная <span class="math inline">\(t\)</span> принимается дискретной, прирастающей на <em>шаг интегрирования</em> <span class="math inline">\(\delta t\)</span>, от решения дифференциальных уравнений переходят к их численному интегрированию, для этого обычно применяется <em>алгоритм Верле</em> <span class="citation" data-cites="Verlet1967">[<a href="#ref-Verlet1967" role="doc-biblioref">1</a>]</span> и его модификации; в МД необходимо знать не только положение частиц, но и их скорости; последние можно определить, если использовать этот алгоритм в т.н. <em>скоростной форме</em>.</p>
-<p>Вычисление скорости на половинном шаге позволяет отразить изменение сил, действующих на частицу, в процессе шага интегрирования, таким образом учитывается взаимное влияние атомов.</p>
+<div class="callout-note callout callout-style-simple no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Информацию по разделу см в <span class="citation" data-cites="Tuckerman2010">[<a href="#ref-Tuckerman2010" role="doc-biblioref">1, с. 312</a>]</span></p>
+</div>
+</div>
+</div>
+<p>Пусть имеем термодинамическую систему, состоящую из молекулы лиганда <span class="math inline">\(\rm L\)</span> и белка <span class="math inline">\(\rm E\)</span>: в состоянии <span class="math inline">\(\cl A\)</span> лиганд <span class="math inline">\(\rm L\)</span> и <span class="math inline">\(\rm E\)</span> и белок не связаны, в состоянии <span class="math inline">\(\cl B\)</span> — имеет место комплекс <span class="math inline">\(\rm{ES}\)</span>, соответственно введём потенциальные энергии <span class="math inline">\(U_{\cl A}(\bf r)\)</span> и <span class="math inline">\(U_{\cl B}(\bf r)\)</span> для несвязанного и связанного состояний. Свободная энергия Гельмгольца перехода в связанное состояние <span class="citation" data-cites="Tuckerman2010">[<a href="#ref-Tuckerman2010" role="doc-biblioref">1, с. 138</a>]</span> <span id="eq-DF-def"><span class="math display">\[\Delta F_{\cl A \cl B} = F_{\cl B} - F_{\cl A} \tag{8.1}\]</span></span> может быть выражена через суммы по состояниям: <span id="eq-DF-by-Q"><span class="math display">\[ \Delta F_{\cl A \cl B} = F_{\cl B} - F_{\cl A} = - k T \ln \dfrac{Q_{\cl B}}{Q_{\cl A}}, \tag{8.2}\]</span></span> где, например, <span id="eq-def-Q"><span class="math display">\[
+\begin{aligned}
+Q_{\cl A} &amp;:= \dfrac{1}{N! h^{3N}} \int_\t{ФП} e^{- \beta H(\bf p, \bf q)} \dd \bf p \dd \bf q = \\
+&amp;= \dfrac{1}{N! h^{3N}} \int_\t{ФП} \exp \left\{ - \beta \left[\sum_{i=1}^N \dfrac{\bf p_i^2}{2m_i}\right] + U_{\cl A} (\bf q_1, \cdots, \bf q_N)\right\} \dd \bf p \dd \bf q,
+\end{aligned}
+\tag{8.3}\]</span></span> где <span class="math inline">\(H\)</span> — гамильтониан системы <span class="math inline">\(\cl A\)</span>, <span class="math inline">\(N\)</span> — число частиц в ней, <span class="math inline">\(\beta = 1 / kT\)</span>, <span class="math inline">\(\dd \bf p \dd \bf q\)</span> — точка ФП; интегрирование ведётся по всему ФП, что эквивалентно интегрированию по области, соответствующей состоянию <span class="math inline">\(\cl A\)</span>, т.е. там, где вероятность пронаблюдать микросостояние состояния <span class="math inline">\(\cl A\)</span> не нулевая.</p>
+<p>Сократив в <a href="#eq-DF-by-Q">Ур.&nbsp;<span>8.2</span></a> числитель и знаменатель на импульсозависимую часть <span class="math inline">\(\exp \{ \sum_i \frac{\bf p_i^2}{2 m_i} \}\)</span>, перейдём к конфигурационным интегралам: <span id="eq-DF-by-Z"><span class="math display">\[\Delta F_{\cl A \cl B} = F_{\cl B} - F_{\cl A} = -kT \ln \dfrac{Z_{\cl B}}{Z_{\cl A}},  \tag{8.4}\]</span></span> где <span id="eq-conf-int-A"><span class="math display">\[ Z_{\cl A} := \int e^{ -\beta U_{\cl A} (\bf q_1, \cdots, \bf q_2) } \dd \bf q. \tag{8.5}\]</span></span></p>
+<p>Оценить <span class="math inline">\(\Delta F\)</span> непосредственно по уравнениям <a href="#eq-DF-by-Q">Ур.&nbsp;<span>8.2</span></a> и <a href="#eq-DF-by-Z">Ур.&nbsp;<span>8.4</span></a> сложно, поскольку методы МД и Монте-Карло не позволяют непосредственно рассчитывать статистические суммы и интегралы, однако позволяют получить хорошие средние оценки ТД функций.</p>
+<p>Уравнение <a href="#eq-DF-by-Z">Ур.&nbsp;<span>8.4</span></a> можно переформулировать через средние ТД величины. Конфигурационный интеграл представим в виде интеграла от двух множителей-экспонент: <span id="eq-conf-int-expressed-by-rho"><span class="math display">\[Z_{\cl B} = \int e^{-\beta U_{\cl B}} \dd \bf q =
+\int e^{-\beta U_{\cl B}} e^{\beta U_{\cl A}} e^{-\beta U_{\cl A} } \dd \bf q =
+\int e^{- \beta (U_{\cl B}-U_{\cl A})} \ub{ e^{-\beta U_{\cl A}} }_{\rho_{\cl A}} \dd \bf q,
+\tag{8.6}\]</span></span> где <span class="math inline">\(\rho_{\cl A}\)</span> — функция распределения, соответствующая состоянию <span class="math inline">\(\cl A.\)</span> Среднее значение произвольной функции <span class="math inline">\(y\)</span> по ансамблю <span class="math inline">\(\cl A\)</span> можно вычислить через функцию распределения <span class="math inline">\(\rho_{\cl A}\)</span>: <span id="eq-ensemble-avg"><span class="math display">\[
+\langle y \rangle_{\cl A} := \dfrac 1 {Z_{\cl A}} \int_\t{ФП} \rho_{\cl A} (\bf p, \bf q) \cdot y(\bf p, \bf q) \dd \bf p \dd \bf q,
+\tag{8.7}\]</span></span> учитывая <a href="#eq-conf-int-expressed-by-rho">Ур.&nbsp;<span>8.6</span></a> и <a href="#eq-ensemble-avg">Ур.&nbsp;<span>8.7</span></a>, дробь в уравнении <a href="#eq-DF-by-Z">Ур.&nbsp;<span>8.4</span></a> примет вид: <span class="math display">\[
+\dfrac{Z_{\cl B}}{Z_{\cl A}} = \dfrac 1 {Z_{\cl A}} \int e^{-\beta U_{\cl A}} e^{-\beta (U_{\cl B} - U_{\cl A})} = \langle e^{-\beta (U_{\cl B} - U_{\cl A})} \rangle_{\cl A},
+\]</span> т.е. среднее берётся из распределения, соответствующего состоянию <span class="math inline">\(\cl A\)</span>. Наконец, <span id="eq-free-energy-perturbation"><span class="math display">\[
+\Delta F_{\cl A \cl B} = -kT \ln \langle e^{-\beta (U_{\cl B} - U_{\cl A})} \rangle_{\cl A}.
+\tag{8.8}\]</span></span></p>
+<div class="page-columns page-full"><p>Уравнение <a href="#eq-free-energy-perturbation">Ур.&nbsp;<span>8.8</span></a> известно как <em>возмущение свободной энергии</em>. Опишем, как следует использовать это уравнение. Состоянию <span class="math inline">\(\cl A\)</span> отвечает функция распределения <span class="math inline">\(\rho_{\cl A}\)</span> и потенциал <span class="math inline">\(U_{\cl A}\)</span>, в ходе численного эксперимента мы получаем точки ФП, соответствующие этому распределению, и затем используем их для моделирования состояния <span class="math inline">\(\cl B,\)</span> заменив потенциал на <span class="math inline">\(U_{\cl B}\)</span>. Однако, распределению <span class="math inline">\(\cl B\)</span> соответствует другая функция распределения <span class="math inline">\(\rho_{\cl B}\)</span>, поэтому точки ФП следует <em>перевзвесить</em><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>, поделив на исходное <span class="math inline">\(e^{-\beta U_{\cl A}}\)</span> и умножив на <span class="math inline">\(e^{-\beta U_{\cl B}}\)</span>.</p><div class="no-row-height column-margin column-container"><li id="fn1"><p><sup>1</sup>&nbsp;от англ. reweighting</p></li></div></div>
+<p>Таким образом, при расчёте <span class="math inline">\(\Delta F\)</span> по <a href="#eq-free-energy-perturbation">Ур.&nbsp;<span>8.8</span></a> мы собираем статистику по ФП, соответствующую начальному состоянию, и затем используем эти наблюдения для оценки <span class="math inline">\(\Delta F\)</span>, как если бы они были взяты из распределения состояния <span class="math inline">\(\cl B\)</span>. Ограничением этого подхода является то, что микросостояния из распределения <span class="math inline">\(\cl A\)</span> могут не быть микросостояниями с высокой вероятностью в распределении <span class="math inline">\(\cl B\)</span>, в этом случае разность <span class="math inline">\(U_{\cl B} - U_{\cl A}\)</span> будет большой и экспоненциальный фактор <span class="math inline">\(e^{-\beta (U_{\cl B} - U_{\cl A})} \to 0\)</span>, соответствующие состояния будут иметь малый вес в среднем по ансамблю <span class="math inline">\(\langle \cdots \rangle_{\cl A}\)</span> и, как следствие, сходимость будет медленной. Другими словами, требуется, чтобы состояние <span class="math inline">\(\cl B\)</span> было небольшим возмущением состояния <span class="math inline">\(\cl A\)</span> и их области в ФП существенно перекрывались.</p>
+<p>В постановке задачи, состоянию <span class="math inline">\(\cl A\)</span> соответствует несвязанные белок E и лиганд L, состоянию <span class="math inline">\(\cl B\)</span> — фермент-субстратный комплекс EL, на масштабах системы «лиганд—белок—гидратная оболочка» переход из несвязанного в связанное состояние в принципе можно считать небольшим возмущением.</p>
+<section id="термодинамическое-интегрирование" class="level1" data-number="9">
+<h1 data-number="9"><span class="header-section-number">9</span> Термодинамическое интегрирование</h1>
+<p>Выбор начального и конечного состояний не ограничивается связыванием в комплекс, состояния могут соответствовать любым областям в ФП. В случае, когда <span class="math inline">\(\cl A\)</span> и <span class="math inline">\(\cl B\)</span> достаточно далеки, вводят промежуточные состояния, переходы между которыми можно считаться малым возмущением. Уравнение <a href="#eq-free-energy-perturbation">Ур.&nbsp;<span>8.8</span></a> в этом обобщении имеет вид: <span class="math display">\[
+\Delta F_{\cl A \cl B} = -kT \sum_{i} \ln \langle e^{-\beta (U_{i+1} - U_i)} \rangle_i,
+\]</span> где <span class="math inline">\(i\)</span> — номер промежуточного состояния, <span class="math inline">\(U_i\)</span> — соответствующий ему потенциал, усреднение ведётся по функции распределения <span class="math inline">\(e^{-\beta U_i}\)</span> этого состояния.</p>
+<p>Однако, можно пойти дальше и от суммирования дискретных состояний перейти к непрерывному интегрированию. Введём путь трансформации <span class="math inline">\(\lambda = 0..1\)</span> — величину по сути аналогичную координате реакции между двумя состояниями ТД системы. Пользуясь <span class="math inline">\(\lambda\)</span> мы можем определить потенциальную энергию <span class="math inline">\(U(\lambda)\)</span> промежуточных состояний:</p>
+<p><span class="math display">\[
+\begin{cases}
+    U(\lambda) = f(\lambda) U_{\cl A} + g(\lambda) U_{\cl B}, \\
+    f(\lambda) \t{ монотонно убывает от $1$ до $0$}, \\
+    g(\lambda) \t{ монотонно возрастает от $0$ до $1$}.
+\end{cases}
+\]</span></p>
+<p>Из выражения свободной энергии, соответствующей состоянию <span class="math inline">\(U(\lambda)\)</span>: <span class="math display">\[ F(\lambda) = - k T \ln Q(\lambda), \]</span> можно получить соотношение для производной свободной энергии <span class="math inline">\(F\)</span> по параметру пути <span class="math inline">\(\lambda\)</span>: <span id="eq-TD-int"><span class="math display">\[
+\begin{aligned}
+\pdv{F}{\lambda} &amp;= -\dfrac{kT}{Q} \pdv{Q}{\lambda} = - \dfrac{kT}{Z} \pdv{Z}{\lambda} = - \dfrac{kT}{Z} \pdv{}{\lambda} \int_\t{ФП} e^{- \beta U(\bf q; \lambda)} \dd \bf q = \\
+&amp;= - \dfrac{kT}{Z} \int_\t{ФП} \left(-\beta \pdv{U(\bf q; \lambda)}{\lambda}\right) e^{- \beta U(\bf q; \lambda)} \dd \bf q = \left\langle \pdv{U(\lambda)}{\lambda} \right\rangle_\lambda,
+\end{aligned}
+\tag{9.1}\]</span></span> т.е. <span class="math inline">\(\partial F / \partial \lambda\)</span> может быть рассчитана через среднее по ансамблю с распределением <span class="math inline">\(e^{-\beta U(\lambda)}\)</span> (<span class="math inline">\(\lambda = \const\)</span>).</p>
+<p>Изменения свободной энергии при переходе из <span class="math inline">\(\cl A\)</span> в <span class="math inline">\(\cl B\)</span> затем может быть рассчитано через интеграл по пути <span class="math inline">\(\lambda\)</span>: <span id="eq-DF-by-avg-lambda-int"><span class="math display">\[
+\Delta F_{\cl A \cl B} = \int_0^1 \left\langle \pdv{U}{\lambda} \right\rangle_\lambda \dd \lambda.
+\tag{9.2}\]</span></span></p>
+<p>Уравнение <a href="#eq-DF-by-avg-lambda-int">Ур.&nbsp;<span>9.2</span></a> называется формулой термодинамического интегрирования <span class="citation" data-cites="Zwanzig1954">[<a href="#ref-Zwanzig1954" role="doc-biblioref">2</a>]</span>, этот интеграл не зависит от выбора <span class="math inline">\(f(\lambda)\)</span> и <span class="math inline">\(g(\lambda)\)</span>, однако, при выборе удачного вида (т.н. выпуклая линейная комбинация) <span class="math display">\[ U(\lambda) = \lambda U_{\cl A} + (1 - \lambda) U_{\cl B}, \]</span> уравнение <a href="#eq-DF-by-avg-lambda-int">Ур.&nbsp;<span>9.2</span></a> упростится до <span class="math display">\[
+\Delta F_{\cl A \cl B} = \int_0^1 \langle U_{\cl B} - U_{\cl A} \rangle \dd \lambda.
+\]</span></p>
+<p>На практике, однако, от интегрирования по <span class="math inline">\(\lambda\)</span> вновь переходят к суммированию по некоторым промежуточным состояниям <span class="math inline">\(\lambda_1, \cdots, \lambda_n\)</span>: <span id="eq-DF-avg-lambda-sum"><span class="math display">\[
+\Delta F_{\cl A \cl B} = \sum_{0 \le \lambda_k \le 1} \left\langle \pdv{U}{\lambda} \right\rangle_{\lambda_k},
+\tag{9.3}\]</span></span> точки ФП для вычисления средних <span class="math inline">\(\langle \partial U / \lambda \rangle_{\lambda_k}\)</span> берутся из распределения <span class="math inline">\(e^{-\beta U(\lambda = \lambda_k)}\)</span>.</p>
 
 
+</section>
 <section id="bibliography" class="level1 unnumbered">
 <h1 class="unnumbered">Источники</h1>
 <div id="refs" class="references csl-bib-body" role="doc-bibliography">
-<div id="ref-Verlet1967" class="csl-entry" role="doc-biblioentry">
-<div class="csl-left-margin">1. </div><div class="csl-right-inline">Verlet L. <a href="https://doi.org/10.1103/PhysRev.159.98">Computer <span>«experiments»</span> on classical fluids. I. Thermodynamical properties of Lennard-Jones molecules</a> // Physical Review. 1967. Т. 159, № 1. С. 98–103.</div>
+<div id="ref-Tuckerman2010" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">1. </div><div class="csl-right-inline">Tuckerman M.E. Statistical mechanics : theory and molecular simulation [Электронный ресурс]. Oxford: Oxford University Press, 2010. URL: <a href="http://site.ebrary.com/id/10370327">http://site.ebrary.com/id/10370327</a>.</div>
+</div>
+<div id="ref-Zwanzig1954" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">2. </div><div class="csl-right-inline">Zwanzig R.W. <a href="https://doi.org/10.1063/1.1740409">High‐Temperature equation of state by a perturbation method. I. Nonpolar gases</a> // The Journal of Chemical Physics. 1954. Т. 22, № 8. С. 1420–1426.</div>
 </div>
 </div>
 </section>
@@ -582,13 +643,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../3-molecular-mechanics/1-interactions.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Молекулярные взаимодействия</span></span>
+      <a href="../6-virtual-screening/1-docking.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Методы расчёта свободной энергии</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../3-molecular-mechanics/3-micro--and-macroparameters.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Микро- и макропараметры</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../7-free-energy-calculation/2-alchemy.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Вычислительная алхимия</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

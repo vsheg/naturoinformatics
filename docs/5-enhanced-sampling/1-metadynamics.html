@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Естествоинформатика - 2&nbsp; Интегрирование уравнений движения</title>
+<title>Естествоинформатика - 6&nbsp; Метадинамика</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -49,8 +49,8 @@ div.csl-indent {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../3-molecular-mechanics/3-micro--and-macroparameters.html" rel="next">
-<link href="../3-molecular-mechanics/1-interactions.html" rel="prev">
+<link href="../6-virtual-screening/1-docking.html" rel="next">
+<link href="../3-molecular-mechanics/5-trajectories.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -62,6 +62,9 @@ div.csl-indent {
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -142,7 +145,7 @@ $$
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Интегрирование уравнений движения</span></h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Метадинамика</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -198,7 +201,7 @@ $$
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../3-molecular-mechanics/2-integration.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Интегрирование уравнений движения</span></a>
+  <a href="../3-molecular-mechanics/2-integration.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Интегрирование уравнений движения</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -228,7 +231,7 @@ $$
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../5-enhanced-sampling/1-metadynamics.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Метадинамика</span></a>
+  <a href="../5-enhanced-sampling/1-metadynamics.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Метадинамика</span></a>
   </div>
 </li>
       </ul>
@@ -289,7 +292,10 @@ $$
     <h2 id="toc-title">Разделы</h2>
    
   <ul>
-  <li><a href="#bibliography" id="toc-bibliography" class="nav-link active" data-scroll-target="#bibliography">Источники</a></li>
+  <li><a href="#коллективные-переменные" id="toc-коллективные-переменные" class="nav-link active" data-scroll-target="#коллективные-переменные"><span class="toc-section-number">6.1</span>  Коллективные переменные</a></li>
+  <li><a href="#метадинамика-nwchemmeta" id="toc-метадинамика-nwchemmeta" class="nav-link" data-scroll-target="#метадинамика-nwchemmeta"><span class="toc-section-number">6.2</span>  Метадинамика <span class="citation" data-cites="nwchemMeta">[<strong>nwchemMeta?</strong>]</span></a></li>
+  <li><a href="#well-tempered-метадинамика" id="toc-well-tempered-метадинамика" class="nav-link" data-scroll-target="#well-tempered-метадинамика"><span class="toc-section-number">6.3</span>  <em>Well-tempered</em> метадинамика</a></li>
+  <li><a href="#bibliography" id="toc-bibliography" class="nav-link" data-scroll-target="#bibliography">Источники</a></li>
   </ul>
 </nav>
 </nav>
@@ -301,7 +307,7 @@ $$
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Интегрирование уравнений движения</span></h1>
+<h1 class="title d-none d-lg-block"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Метадинамика</span></h1>
 </div>
 
 
@@ -316,16 +322,64 @@ $$
 
 </header>
 
-<div class="page-columns page-full"><p>Задача МД сводится к решению дифференциального уравнения Ньютона <a href="1-interactions.html#eq-newton2law">Ур.&nbsp;<span>1.1</span></a> для каждой частицы, всего таких уравнений <span class="math inline">\(N\)</span> в векторной форме или <span class="math inline">\(3N\)</span> в скалярной (для трёхмерного пространства), решением системы будут <span class="math inline">\(3N\)</span> проекций координат<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> <span class="math inline">\(r_{x,i}(t)\)</span>, <span class="math inline">\(r_{y,i}(t)\)</span>, <span class="math inline">\(r_{z,i}(t)\)</span> и <span class="math inline">\(3N\)</span> проекций скоростей <span class="math inline">\(v {x,i}(t)\)</span>, <span class="math inline">\(v_{y,i}(t)\)</span>, <span class="math inline">\(v_{z,i}(t)\)</span> для всех частиц системы в каждый момент времени.</p><div class="no-row-height column-margin column-container"><li id="fn1"><p><sup>1</sup>&nbsp;в данном случае декартовых</p></li></div></div>
-<p>Известно, что аналитический аппарат классической механики не может справиться с решением подобной задачи уже при <span class="math inline">\(N=3\)</span> (задача трёх тел), поэтому здесь применимы только численные подходы: временна́я переменная <span class="math inline">\(t\)</span> принимается дискретной, прирастающей на <em>шаг интегрирования</em> <span class="math inline">\(\delta t\)</span>, от решения дифференциальных уравнений переходят к их численному интегрированию, для этого обычно применяется <em>алгоритм Верле</em> <span class="citation" data-cites="Verlet1967">[<a href="#ref-Verlet1967" role="doc-biblioref">1</a>]</span> и его модификации; в МД необходимо знать не только положение частиц, но и их скорости; последние можно определить, если использовать этот алгоритм в т.н. <em>скоростной форме</em>.</p>
-<p>Вычисление скорости на половинном шаге позволяет отразить изменение сил, действующих на частицу, в процессе шага интегрирования, таким образом учитывается взаимное влияние атомов.</p>
+<section id="коллективные-переменные" class="level2 page-columns page-full" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="коллективные-переменные"><span class="header-section-number">6.1</span> Коллективные переменные</h2>
+<p>Полученное ФП сложно анализировать непосредственно, но из него можно выделить некоторое полезное подмножество координат, после чего сконструировать из них <em>коллективные переменные</em> <span class="math inline">\(\mathbf{S}=S_{1},\cdots,S_{d}\)</span>, позволяющие строить состоятельные утверждения о внутренних степенях свободы системы (например, белковой молекулы) и интерпретировать их.</p>
+<div class="page-columns page-full"><p>Некоторые простые и их интерпретация<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>:</p><div class="no-row-height column-margin column-container"><li id="fn1"><p><sup>1</sup>&nbsp;для удобства нотации полезно ввести следующий формализм: совокупность КП <span class="math inline">\(\mathbf{S}=S_{1},\cdots,S_{d}\)</span> будем называть пространством КП, конкретное значение <span class="math inline">\(S_{i}\)</span> будем обозначать <span class="math inline">\(s_{i}\)</span>, вектор в пространстве <span class="math inline">\(\mathbf{S}\)</span> запишем как <span class="math inline">\(\mathbf{s}=(s_{1},\cdots,s_{d})\)</span>, выражение <span class="math inline">\(\mathbf{S}(\mathbf{q})\)</span> или <span class="math inline">\(\mathbf{S}(t)\equiv\mathbf{S}(\mathbf{q}(t))\)</span> подчёркивает, что КП зависят от координат или времени соответственно</p></li></div></div>
+<ol type="1">
+<li><p>расстояние между двумя атомами<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> (или между центрами масс групп атомов) <span class="math inline">\(S=|\mathbf{r}_{i}-\mathbf{r}_{j}|\)</span>&nbsp;— собственно расстояние или длина связи;</p></li>
+<li><p>угол между тремя атомами <span class="math inline">\(S=\widehat{{\bf r}_{i},{\bf r}_{j},{\bf r}_{k}}\)</span>&nbsp;— валентный угол;</p></li>
+<li><p>двугранный угол, образованный четырьмя атомами, <span class="math inline">\(S=\widehat{{\bf r}_{i,j},{\bf r}_{k,l}}\)</span>&nbsp;— торсионный угол;</p></li>
+<li><p>количество соседей внутри шара радиуса <span class="math inline">\(R\)</span>, описанного вокруг атома, <span class="math inline">\(S={\rm card}\left\{ \mathbf{r}_{i}\colon|\mathbf{r}_{i}-\mathbf{r}_{j}|\le R\right\} -1\)</span>&nbsp;— координационное число, оператор «<span class="math inline">\(\text{{\rm card}}\)</span>» обозначает размер множества.</p></li>
+</ol>
+<div class="no-row-height column-margin column-container"><li id="fn2"><p><sup>2</sup>&nbsp;здесь и далее — не между произвольными атомами, а между наперёд заданными; <span class="math inline">\(\mathbf{r}_{i}\)</span>— радиус-вектор <span class="math inline">\(i\)</span>го атома, <span class="math inline">\({\bf r}_{i,j}\)</span> — вектор c началом в <span class="math inline">\(i\)</span>м и конце в <span class="math inline">\(j\)</span>м атомах</p></li></div></section>
+<section id="метадинамика-nwchemmeta" class="level2 page-columns page-full" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="метадинамика-nwchemmeta"><span class="header-section-number">6.2</span> Метадинамика <span class="citation" data-cites="nwchemMeta">[<a href="#ref-nwchemMeta" role="doc-biblioref"><strong>nwchemMeta?</strong></a>]</span></h2>
+<p>Численный эксперимент МД ограничен доступным машинным временем, в нормальном случае его не хватит для исследования всего ФП, а если энергические барьеры между состояниями достаточно высоки, за время моделирования система может даже не покинуть начальную область ФП, пример системы, в которой может наблюдаться такая картина, приведён на <a href="#fig-reaction-profile">Рис&nbsp;<span>6.1</span></a>; подобный маловероятный «прыжок» молекулы из одного минимума в другой называют <em>редким событием</em> <span class="citation" data-cites="Glowacki2009">[<a href="#ref-Glowacki2009" role="doc-biblioref">1</a>]</span>.</p>
+<div id="fig-reaction-profile" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><a href="../imgs/reaction-profile.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Профиль свободной энергии"><img src="../imgs/reaction-profile.png" class="img-fluid figure-img" style="width:70.0%"></a></p>
+<p></p><figcaption class="figure-caption">Рисунок&nbsp;6.1: Профиль свободной энергии</figcaption><p></p>
+</figure>
+</div>
+<div class="page-columns page-full"><p>Метадинамика — неравновесный метод молекулярного моделирования. Для эффективного получения выборки из ФП к потенциалам взаимодействия, описанным в [Описание метода], добавляют зависящий от КП<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> <span class="math inline">\(\mathbf{S(q)}\)</span> и времени <span class="math inline">\(t\)</span> смещающий потенциал <span class="math inline">\(V(\mathbf{S(q)},t)\)</span>, который будет способствовать выходу системы из её энергетического минимума, что, в свою очередь, позволит исследовать новые области ФП.</p><div class="no-row-height column-margin column-container"><li id="fn3"><p><sup>3</sup>&nbsp;обозначения коллективных переменных были введены в <a href="#коллективные-переменные">Коллективные переменные</a></p></li></div></div>
+<p>Для пространства <span class="math inline">\(\mathbf{S(q)}\)</span> изменение потенциала <span class="math inline">\(V(\mathbf{S(q)},t)\)</span> во времени происходит не непрерывно; в начале симуляции <span class="math inline">\(V(\mathbf{S(q)},t=0)=0\)</span>, однако через равные промежутки времени <span class="math inline">\(\tau\)</span> к нему добавляются гауссовы функции так, чтобы положение их максимумов совпало с текущем значением коллективных переменных <span class="math inline">\(\mathbf{s}(t)\)</span>:</p>
+<p><span class="math display">\[V(t)=V(t-\tau)+h(t)\exp\left\{ -\dfrac{1}{2}\sum_{i=1}^{d}\left(\dfrac{s_{i}(t)-s_{i}(\lfloor t/\tau\rfloor\cdot\tau)}{\sigma_{i}}\right)^{2}\right\}\]</span> или, если исключить предыдущее значение <span class="math inline">\(V(t-\tau)\)</span> и суммировать по шагам <span class="math inline">\(k\)</span> явно,</p>
+<p><span id="eq-metaMD-eq"><span class="math display">\[V(\bf s,t)=\sum_{k=1}^{\lfloor t/\tau\rfloor}h(t)\exp\l\{ -\dfrac 1 2 \sum_{i=1}^d \l(\dfrac{s_i-s_i(k \tau)}{\sigma_i}\r)^2\r\} . \tag{6.1}\]</span></span></p>
+<div id="fig-meta-dynamics" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><a href="../imgs/meta-dynamics.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Этапы наложения гауссиан в процессе метадинамики: а) начало симуляции; б) выход из области начального состояния; в) исследование области конечного состояния; г) свободное плавание"><img src="../imgs/meta-dynamics.png" class="img-fluid figure-img"></a></p>
+<p></p><figcaption class="figure-caption">Рисунок&nbsp;6.2: Этапы наложения гауссиан в процессе метадинамики: <em>а</em>) начало симуляции; <em>б</em>) выход из области начального состояния; <em>в</em>) исследование области конечного состояния; <em>г</em>) свободное плавание</figcaption><p></p>
+</figure>
+</div>
+<p>Накачку системы энергией называют <em>нагреванием</em>, поскольку в процессе температура неизбежно возрастёт на <em>фиктивную</em> величину <span class="math inline">\(\Delta T\)</span>; если в начальный момент система условно находилась в нуле энергии, то в ходе нагрева ей становятся доступны состояния со свободной энергией <span class="math inline">\([0\,..\,k\Delta T]\)</span> за вполне обозримое время.</p>
+<p>Высоту экспоненты в <a href="#eq-metaMD-eq">Ур.&nbsp;<span>6.1</span></a> задаёт <span class="math inline">\(h(t)\)</span>, в классической метадинамике её принимают постоянной и равной <span class="math inline">\(h_{0}\)</span>. В большом временном пределе <span class="math inline">\(F(\mathbf{s})+V(\mathbf{s},t)\)</span> обращается в константу, поэтому оценка свободной энергии <span id="eq-standard-metad-free-energy"><span class="math display">\[F(\mathbf{s})=\const-\lim_{t\to\infty}V(\mathbf{s},t), \tag{6.2}\]</span></span> т.е. зная, как смещающий потенциал <span class="math inline">\(V(\mathbf{S},t)\)</span> меняется во времени, можно реконструировать вид поверхности потенциальной энергии <span class="citation" data-cites="Barducci2008 Barducci2011">[<a href="#ref-Barducci2008" role="doc-biblioref">2</a>,<a href="#ref-Barducci2011" role="doc-biblioref">3</a>]</span>.</p>
+</section>
+<section id="well-tempered-метадинамика" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="well-tempered-метадинамика"><span class="header-section-number">6.3</span> <em>Well-tempered</em> метадинамика</h2>
+<p>Для лучшей сходимости метадинамики, высота <span class="math inline">\(h(t)\)</span> на больших временных масштабах должна уменьшаться, например, по закону: <span class="math display">\[
+\begin{aligned}
+h(t) &amp; = &amp; h_{0}\exp\left\{ -\dfrac{V(\mathbf{s}(t),t)}{k\Delta T}\right\} ,
+\end{aligned}
+\]</span> эту модификацию называют <em>well-tempered</em> метадинамикой, высота гауссианы определяется привнесённым смещением <span class="math inline">\(V(\mathbf{s}(t),t)\)</span> и фиктивной температурой <span class="math inline">\(\Delta T\)</span>. Если система перешла в новую область ФП, где ещё не был наложен смещающий потенциал, высота добавляемых гауссиан вновь вырастет до значения <span class="math inline">\(h_{0}\)</span> и будет уменьшаться с ростом <span class="math inline">\(V(\mathbf{s}(t),t)\)</span> в этой области. Аналогично <a href="#eq-standard-metad-free-energy">Ур.&nbsp;<span>6.2</span></a> можно записать оценку <span class="math display">\[
+F(\mathbf{s})=\const-\left(1+\dfrac{T}{\Delta T}\right)\lim_{t\to\infty}V(\mathbf{s},t).
+\]</span></p>
+<p>На практике далеко не всегда удаётся достичь выхода <span class="math inline">\(V(\mathbf{s},t)\)</span> на постоянное значение — глубина исследования ФП определяется доступным машинным временем, однако, стоит упомянуть, что в момент перехода системы в свободное плавание (<a href="#fig-meta-dynamics">Рис&nbsp;<span>6.2</span></a> <em>в</em>) она начнёт быстро дрейфовать по поверхности свободной энергии и может даже совершить прыжок в область ФП вне интересующих нас пределов, об этом важно помнить, чтобы остановить моделирование в подходящий момент.</p>
+<p>Резюмируем. Протокол метадинамики включает несколько шагов: 1. конструируются коллективные переменные <span class="math inline">\(\mathbf{S}(\mathbf{q})\)</span> — функции координат атомов, цель которых — ёмкое и исчерпывающее описание эволюции системы в процессе моделирования с позиции наблюдения интересующих исследователя событий, иными словами, изменение <span class="math inline">\(\mathbf{S}(\mathbf{q})\)</span> должно отражать протекание конкретного процесса, поскольку сэмплирование ФП происходит согласованно с пространством КП; 2. выбираются период наложения <span class="math inline">\(\tau\)</span>, начальная высота <span class="math inline">\(h_{0}\)</span> и ширины <span class="math inline">\(\sigma_{i}\)</span> гауссиан; 3. проводится компьютерное моделирование со смещающим потенциалом <span class="math inline">\(V(\mathbf{s},t)\)</span>; 4. восстанавливается вид поверхности свободной энергии по изменению <span class="math inline">\(V(\mathbf{S},t)\)</span> во времени.</p>
 
 
+</section>
 <section id="bibliography" class="level1 unnumbered">
 <h1 class="unnumbered">Источники</h1>
 <div id="refs" class="references csl-bib-body" role="doc-bibliography">
-<div id="ref-Verlet1967" class="csl-entry" role="doc-biblioentry">
-<div class="csl-left-margin">1. </div><div class="csl-right-inline">Verlet L. <a href="https://doi.org/10.1103/PhysRev.159.98">Computer <span>«experiments»</span> on classical fluids. I. Thermodynamical properties of Lennard-Jones molecules</a> // Physical Review. 1967. Т. 159, № 1. С. 98–103.</div>
+<div id="ref-Glowacki2009" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">1. </div><div class="csl-right-inline">Glowacki D.R., Paci E., Shalashilin D.V. <a href="https://doi.org/10.1021/jp9074898">Boxed molecular dynamics: A simple and general technique for accelerating rare event kinetics and mapping free energy in large molecular systems</a> // Journal of Physical Chemistry B. ACS Publications, 2009. Т. 113, № 52. С. 16603–16611.</div>
+</div>
+<div id="ref-Barducci2008" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">2. </div><div class="csl-right-inline">Barducci A., Bussi G., Parrinello M. <a href="https://doi.org/10.1103/PhysRevLett.100.020603">Well-tempered metadynamics: A smoothly converging and tunable free-energy method</a> // Physical Review Letters. 2008. Т. 100, № 2.</div>
+</div>
+<div id="ref-Barducci2011" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">3. </div><div class="csl-right-inline">Barducci A., Bonomi M., Parrinello M. <a href="https://doi.org/10.1002/wcms.31">Metadynamics</a> // Wiley Interdisciplinary Reviews: Computational Molecular Science. Wiley Online Library, 2011. Т. 1, № 5. С. 826–843.</div>
 </div>
 </div>
 </section>
@@ -582,17 +636,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../3-molecular-mechanics/1-interactions.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Молекулярные взаимодействия</span></span>
+      <a href="../3-molecular-mechanics/5-trajectories.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Анализ траекторий</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../3-molecular-mechanics/3-micro--and-macroparameters.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Микро- и макропараметры</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../6-virtual-screening/1-docking.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Методы расчёта свободной энергии</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
 </div> <!-- /content -->
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","selector":".lightbox","loop":true,"openEffect":"zoom","descPosition":"bottom"});</script>
 
 
 

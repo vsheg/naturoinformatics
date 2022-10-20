@@ -28,7 +28,7 @@ $$
 \def\E{\exists}
 \def\To{\Rightarrow}
 \def\dag{\dagger}
-\def\AA{\angstrom}
+\def\AA{\unicode{x212B}}
 \def\const{\rm{const}}
 \def\t{\text}
 \def\ub{\underbrace}
