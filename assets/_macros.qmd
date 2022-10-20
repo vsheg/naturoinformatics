@@ -1,0 +1,41 @@
+<script>
+window.MathJax = {
+  loader: { load: ["[tex]/physics"] },
+  tex: {
+    packages: { "[+]": ["physics"] },
+  },
+  options: {
+    enableMenu: false,
+  },
+};
+</script>
+
+<div class="hidden">
+$$
+\def\bb{\mathbb}
+\def\bf{\mathbf}
+\def\cl{\mathcal}
+\def\rm{\mathrm}
+\def\bm{\boldsymbol}
+\def\t{\text}
+\def\u{\rm}
+\def\R{\bb R}
+\def\N{\bb N}
+\def\Z{\bb Z}
+\def\Q{\bb Q}
+\def\C{\bb C}
+\def\A{\forall}
+\def\E{\exists}
+\def\To{\Rightarrow}
+\def\dag{\dagger}
+\def\AA{\angstrom}
+\def\const{\rm{const}}
+\def\t{\text}
+\def\ub{\underbrace}
+\def\l{\left}
+\def\r{\right}
+\renewcommand{\epsilon}{\varepsilon}
+\renewcommand{\phi}{\varphi}
+\renewcommand{\dd}{\, \rm d}
+$$
+</div>

@@ -1,0 +1,91 @@
+/*-- scss:defaults --*/
+
+// $toc-font-size: 0.5rem;
+// $sidebar-font-size: 0.5rem;
+
+/*-- scss:rules --*/
+
+.display .math {
+    font-size: 1.3em !important;
+}
+
+p,
+li {
+    -webkit-hyphens: auto;
+    -moz-hyphens: auto;
+    -ms-hyphens: auto;
+    -o-hyphens: auto;
+    hyphens: auto;
+}
+
+ol,
+ul {
+    padding-left: 1rem !important;
+}
+
+section.page-columns p {
+    // text-indent: 1.5em;
+    // text-align: justify;
+}
+
+video {
+    pointer-events: none;
+}
+
+.footnote-ref ~ .footnote-ref :before {
+    content: ",";
+}
+
+// headings
+
+h1 {
+    font-size: 1.35rem;
+}
+
+h2 {
+    font-size: 1.2rem;
+}
+
+h3 {
+    font-size: 1.05rem;
+    font-weight: bold;
+}
+
+h4 {
+    font-size: 0.9rem;
+    font-weight: bold;
+    font-style: italic;
+}
+
+.subtitle {
+    font-size: 1.1em;
+    font-style: italic;
+}
+
+// definition list
+
+dl {
+    display: grid;
+    grid-template-columns: max-content auto;
+    column-gap: 1em;
+
+    dt {
+        grid-column-start: 1;
+    }
+
+    dd {
+        grid-column-start: 2;
+    }
+}
+
+//
+
+.sidebar-menu-container,
+#TOC {
+    font-size: 0.5rem !important;
+}
+
+// SVG animation
+.sidebar-logo {
+    zoom: 20%;
+}

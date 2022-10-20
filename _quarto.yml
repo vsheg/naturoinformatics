@@ -1,0 +1,98 @@
+project:
+  type: book
+  output-dir: docs
+
+lang: ru
+
+repo-url: &repo-url https://github.com/vsheg/naturoinformatics
+site-url: https://naturoinformatics.sheg.cc
+telegram-channel: naturoinformatics
+telegram-chat: naturoinformatics_chat
+
+book:
+  title: "*Естество*информатика"
+  subtitle: Вычислительная химия и биология
+  author: Всеволод Щеголев
+  sidebar:
+    logo: assets/logo.svg
+    contents:
+      - index.qmd
+    collapse-level: 2
+    tools:
+      - icon: house
+        href: https://sheg.cc
+      - icon: github
+        href: *repo-url
+  chapters:
+    - index.qmd
+    - notation.qmd
+    - part: "Молекулярная динамика"
+      chapters:
+        - 3-molecular-mechanics/1-interactions.qmd
+        - 3-molecular-mechanics/2-integration.qmd
+        - 3-molecular-mechanics/3-micro--and-macroparameters.qmd
+        - 3-molecular-mechanics/4-force-fields.qmd
+        - 3-molecular-mechanics/5-trajectories.qmd
+  google-analytics: "G-JZGJWN0T0F"
+
+bibliography: assets/citation.yaml
+reference-section-title: Источники
+csl: assets/gost-numeric.csl
+link-citations: true
+
+format:
+  html:
+    toc: true
+    toc-location: left
+    toc-title: Разделы
+    toc-depth: 4
+    html-math-method: mathjax
+    theme:
+      light:
+        - cosmo
+        - assets/custom.scss
+      dark:
+        - cosmo
+        - assets/custom.scss
+        - assets/dark.scss
+    code-fold: true
+    include-in-header:
+      - assets/_macros.qmd
+
+mainfont: Times New Roman
+fontsize: 13pt
+linestretch: 1.25
+reference-location: margin
+
+callout-appearance: minimal
+
+# number-sections: false
+
+crossref:
+  fig-prefix: Рис
+  tbl-prefix: Табл
+  eq-prefix: Ур.
+
+filters:
+  - pandoc-chem-struct
+  - filters/notae.py
+  - lightbox
+
+lightbox: auto
+fig-format: svg
+
+number-depth: 2
+# cap-location: margin
+
+# ???
+max-width: 1000px
+margin-left: 0px
+margin-right: 0px
+
+references:
+  - id: astley1987
+    type: webpage
+    url: https://www.youtube.com/watch?v=dQw4w9WgXcQ
+    title: Never Gonna Give You Up
+    author: Rick Astley
+    issued: 1987
