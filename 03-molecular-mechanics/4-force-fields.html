@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru" xml:lang="ru"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Естествоинформатика - Силовые поля</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../03-molecular-mechanics/5-trajectories.html" rel="next">
+<link href="../03-molecular-mechanics/3-micro--and-macroparameters.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "Поиск не дал результатов",
+    "search-matching-documents-text": "Результаты поиска",
+    "search-copy-link-title": "Скопировать ссылку",
+    "search-hide-matches-text": "Скрыть дополнительные результаты",
+    "search-more-match-text": "дополнительный результат в этом документе",
+    "search-more-matches-text": "дополнительных результата(-ов) в этом документе",
+    "search-clear-button-title": "Очистить",
+    "search-detached-cancel-button-title": "Отменить",
+    "search-submit-button-title": "Найти",
+    "search-label": "Поиск"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-JZGJWN0T0F"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-JZGJWN0T0F', { 'anonymize_ip': true});
+</script>
+<script>
+window.MathJax = {
+  options: {
+    enableMenu: false,
+  },
+};
+</script>
+
+</head><body class="nav-sidebar floating slimcontent"><div class="hidden">
+$$
+\require{color}
+\require{physics}
+
+\def\bb{\mathbb}
+\def\bf{\mathbf}
+\def\cl{\mathcal}
+\def\rm{\mathrm}
+\def\bm{\boldsymbol}
+\def\t{\text}
+\def\u{\rm}
+\def\R{\bb R}
+\def\N{\bb N}
+\def\Z{\bb Z}
+\def\Q{\bb Q}
+\def\C{\bb C}
+\def\A{\forall}
+\def\E{\exists}
+\def\To{\Rightarrow}
+\def\dag{\dagger}
+\def\AA{\unicode{x212B}}
+\def\const{\rm{const}}
+\def\t{\text}
+\def\ub{\underbrace}
+\def\l{\left}
+\def\r{\right}
+\newcommand{\hi}[1] {{\color{blue} #1}}
+\renewcommand{\epsilon}{\varepsilon}
+\renewcommand{\phi}{\varphi}
+\renewcommand{\dd}{\, \rm d}
+$$
+</div>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+
+
+
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Переключить боковую панель навигации" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../03-molecular-mechanics/1-interactions.html">Молекулярная динамика</a></li><li class="breadcrumb-item"><a href="../03-molecular-mechanics/4-force-fields.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Силовые поля</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Переключить боковую панель навигации" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../assets/logo.svg" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Естествоинформатика</a> 
+        <div class="sidebar-tools-main tools-wide">
+    <a href="https://sheg.cc" rel="" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-house"></i></a>
+    <a href="https://github.com/vsheg/naturoinformatics" rel="" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Переключить темный режим"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Поиск"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Добро пожаловать</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../00-intro/notation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Обозначения</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false">
+ <span class="menu-text">Квантовая механика</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false" aria-label="Переключить раздел">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../01-quantum-mechanincs/0-quantum-mechanics.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Квантовая механика</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../01-quantum-mechanincs/1-wave-function.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Волновое уравнение</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../01-quantum-mechanincs/2-state-vectors.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Векторы состояния</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../01-quantum-mechanincs/3-schrodinger-equation.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Уравнение Шрёдингера</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../01-quantum-mechanincs/4-hydrogen-like-ion.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Водородоподобный ион</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../01-quantum-mechanincs/5-basis-sets.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Базисы</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">Молекулярная динамика</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Переключить раздел">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../03-molecular-mechanics/1-interactions.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Молекулярные взаимодействия</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../03-molecular-mechanics/2-integration.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Интегрирование уравнений движения</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../03-molecular-mechanics/3-micro--and-macroparameters.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Микро- и макропараметры</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../03-molecular-mechanics/4-force-fields.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Силовые поля</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../03-molecular-mechanics/5-trajectories.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Анализ траекторий</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
+ <span class="menu-text">Ускоренный семплинг</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Переключить раздел">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../05-enhanced-sampling/1-metadynamics.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Метадинамика</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">
+ <span class="menu-text">Виртуальный скрининг</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false" aria-label="Переключить раздел">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../06-virtual-screening/1-docking.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Методы расчёта свободной энергии</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false">
+ <span class="menu-text">Рассчёт свободной энергии</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false" aria-label="Переключить раздел">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../07-free-energy-calculation/1-fep.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Теория возмущений свободной энергии</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../07-free-energy-calculation/2-alchemy.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Вычислительная алхимия</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false">
+ <span class="menu-text">Хемоинформатика</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false" aria-label="Переключить раздел">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../08-chemoinformatics/1-chemoinformatics.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Хемоинформатика</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Разделы</h2>
+   
+  <ul>
+  <li><a href="#классические-силовые-поля" id="toc-классические-силовые-поля" class="nav-link active" data-scroll-target="#классические-силовые-поля">Классические силовые поля</a>
+  <ul>
+  <li><a href="#sec-ff-development" id="toc-sec-ff-development" class="nav-link" data-scroll-target="#sec-ff-development">Разработка параметров</a></li>
+  <li><a href="#учёт-анизотропии" id="toc-учёт-анизотропии" class="nav-link" data-scroll-target="#учёт-анизотропии">Учёт анизотропии</a></li>
+  <li><a href="#resp" id="toc-resp" class="nav-link" data-scroll-target="#resp">RESP</a></li>
+  <li><a href="#sec-ff-differences" id="toc-sec-ff-differences" class="nav-link" data-scroll-target="#sec-ff-differences">Различия классических силовых полей <span class="citation" data-cites="Guvench2008">[6]</span></a></li>
+  </ul></li>
+  <li><a href="#sec-water-models" id="toc-sec-water-models" class="nav-link" data-scroll-target="#sec-water-models">Модели воды <span class="citation" data-cites="Onufriev2018">[12]</span></a>
+  <ul>
+  <li><a href="#tipnp" id="toc-tipnp" class="nav-link" data-scroll-target="#tipnp"><code>TIP</code><span class="math inline">\(n\)</span><code>P</code></a></li>
+  <li><a href="#opc" id="toc-opc" class="nav-link" data-scroll-target="#opc"><code>OPC</code></a></li>
+  </ul></li>
+  <li><a href="#неклассические-силовые-поля" id="toc-неклассические-силовые-поля" class="nav-link" data-scroll-target="#неклассические-силовые-поля">Неклассические силовые поля</a>
+  <ul>
+  <li><a href="#sec-polarizable-ff" id="toc-sec-polarizable-ff" class="nav-link" data-scroll-target="#sec-polarizable-ff">Поляризуемые силовые поля</a>
+  <ul class="collapse">
+  <li><a href="#колеблющиеся-заряды" id="toc-колеблющиеся-заряды" class="nav-link" data-scroll-target="#колеблющиеся-заряды">Колеблющиеся заряды</a></li>
+  <li><a href="#заряды-на-пружинах" id="toc-заряды-на-пружинах" class="nav-link" data-scroll-target="#заряды-на-пружинах">«Заряды на пружинах»</a></li>
+  <li><a href="#индуцируемые-диполи" id="toc-индуцируемые-диполи" class="nav-link" data-scroll-target="#индуцируемые-диполи">Индуцируемые диполи</a></li>
+  </ul></li>
+  <li><a href="#крупнозернистые-силовые-поля-kmiecik2016" id="toc-крупнозернистые-силовые-поля-kmiecik2016" class="nav-link" data-scroll-target="#крупнозернистые-силовые-поля-kmiecik2016">Крупнозернистые силовые поля <span class="citation" data-cites="Kmiecik2016">[7]</span></a></li>
+  </ul></li>
+  <li><a href="#bibliography" id="toc-bibliography" class="nav-link" data-scroll-target="#bibliography">Источники</a></li>
+  </ul>
+</nav>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+    </div>
+<!-- main -->
+<main class="content page-columns page-full" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-title">Силовые поля</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<p>Несмотря на прочно разработанную теоретическую базу, МД исторически складывалась именно как прикладная область, поэтому многие ключевые методы были разработаны и реализованы так, чтобы стать частью прикладного программного обеспечивания ПО. Рассмотрение в этом разделе ведётся со стороны программных пакетов для проведения МД.</p>
+<section id="классические-силовые-поля" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="классические-силовые-поля">Классические силовые поля</h2>
+<div class="page-columns page-full"><p>МД требует явного задания вида потенциалов, описывающих взаимодействия атомов <a href="1-interactions.html#eq-md-U">Ур.&nbsp;<span>7.3</span></a>, этот потенциал определяется вкладом двух составляющих: <span class="math display">\[ U = U_\t{ков.} + U_\t{неков.}, \]</span> где терм <span class="math inline">\(U_\t{ков.}\)</span> отвечает взаимодействию связанных химической связью атомами, а <span class="math inline">\(U_\t{неков.}\)</span>&nbsp;— взаимодействию между далёкими атомами в одной молекуле или атомам в разных молекулах. Это деление обусловлено, во-первых, их видом<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> <a href="1-interactions.html#eq-md-U">Ур.&nbsp;<span>7.3</span></a>, и, во-вторых, принципами, по которым оцениваются численные параметры, входящие в их выражения.</p><div class="no-row-height column-margin column-container"><li id="fn1"><p><sup>1</sup>&nbsp;ковалентные проявляются во взаимодействии химических связей, валентных углов и т.д., нековалентные действуют через пространство, убывают на расстоянии и суммируются по принципу «каждый с каждым»</p></li></div></div>
+<p>Описание атома в МД весьма формально: достаточно задать выражение потенциалов взаимодействий и значения численных параметров этих уравнений. Для группировки численных параметров СП вводят т.н. <em>типы атомов</em>: например, в СП <code>GAFF</code> (<a href="#tbl-ff">Табл&nbsp;<span>10.1</span></a>) для алифатического <span class="math inline">\(sp^2\)</span> атома углерода имеется тип атома <code>c2</code>, а для ароматического — <code>ca</code>.</p>
+<div class="page-columns page-full"><p>Нековалентные взаимодействия обуславливают вторичную и более высокие порядки структуры макромолекул. Силовые поля, призванные описывать большой спектр химически разнородных молекул, как правило, уступают более специализированным СП. Таковые имеются для белков, нуклеиновых кислот, липидов и сахаров<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>. В противовес им ставятся СП для описания малых молекул, например, лекарственно-подобных или воды.</p><div class="no-row-height column-margin column-container"><li id="fn2"><p><sup>2</sup>&nbsp;поскольку природные полимеры и липиды склонны образовывать структуры высших порядков (которые для многих задач МД <strong>критически</strong> важно воспроизводить с высокой точностью) и также содержат лишь небольшое число уникальных фрагментов</p></li></div></div>
+<div id="tbl-ff" class="anchored page-columns page-full">
+<table class="table">
+
+<colgroup>
+<col style="width: 25%">
+<col style="width: 49%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Пакет ПО</th>
+<th>Силовое поле</th>
+<th>Типы молекул</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>AMBER</code><a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></td>
+<td><code>ff19SB</code><a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> <span class="citation" data-cites="Tian2020">[<a href="#ref-Tian2020" role="doc-biblioref">1</a>]</span>, <code>ff14SB</code></td>
+<td>белки</td>
+</tr>
+<tr class="even">
+<td><code>AMBER</code></td>
+<td><code>GAFF</code><a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>, <code>GAFF2</code></td>
+<td>малые орг. молекулы</td>
+</tr>
+<tr class="odd">
+<td><code>AMBER</code></td>
+<td><code>lipids21</code>, <code>lipid14</code> <span class="citation" data-cites="Dickson2014">[<a href="#ref-Dickson2014" role="doc-biblioref">2</a>]</span></td>
+<td>липиды</td>
+</tr>
+<tr class="even">
+<td><code>GROMACS</code><a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a></td>
+<td><code>GROMOS</code><a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a></td>
+<td>белки</td>
+</tr>
+<tr class="odd">
+<td><code>CHARMM</code><a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a></td>
+<td><code>CHARMM27</code></td>
+<td>белки и липиды</td>
+</tr>
+<tr class="even">
+<td><code>CHARMM</code></td>
+<td><code>CGenFF</code><a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a></td>
+<td>малые молекулы</td>
+</tr>
+<tr class="odd">
+<td><code>BOSS</code><a href="#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a></td>
+<td><code>OPLS</code><a href="#fn11" class="footnote-ref" id="fnref11" role="doc-noteref"><sup>11</sup></a></td>
+<td>орг. молекулы</td>
+</tr>
+</tbody>
+</table>
+<div class="no-row-height column-margin column-container"><li id="fn3"><p><sup>3</sup>&nbsp;Assisted Model Building and Energy Refinement</p></li><li id="fn4"><p><sup>4</sup>&nbsp;Force Field Backbone and Side chain</p></li><li id="fn5"><p><sup>5</sup>&nbsp;General AMBER Force Field</p></li><li id="fn6"><p><sup>6</sup>&nbsp;GROningen MAchine for Chemical Simulations</p></li><li id="fn7"><p><sup>7</sup>&nbsp;GROningen MOlecular Simulation</p></li><li id="fn8"><p><sup>8</sup>&nbsp;Chemistry at HARvard Molecular Mechanics</p></li><li id="fn9"><p><sup>9</sup>&nbsp;CHARMM General Force Field</p></li><li id="fn10"><p><sup>10</sup>&nbsp;Biochemical and Organic Simulation System</p></li><li id="fn11"><p><sup>11</sup>&nbsp;Optimized Potentials for Liquid Simulations</p></li></div><div class="quarto-table-caption margin-caption">Таблица&nbsp;10.1: Классические силовые поля</div></div>
+<section id="sec-ff-development" class="level3 page-columns page-full">
+<h3 class="anchored" data-anchor-id="sec-ff-development">Разработка параметров</h3>
+<p>Оценка параметров атомов СП производится по данным квантово-механического (КМ) моделирования с опорой на экспериментальные данные. Из серии КМ расчётов, проведённых для разных искажённых геометрий одной молекулы, можно сначала определить потенциальную энергию различных конформаций, а затем найти оценку параметров жёсткости длины связи <a href="1-interactions.html#eq-U-bond">Ур.&nbsp;<span>7.4</span></a> и её валентных углов <a href="1-interactions.html#eq-U-valence">Ур.&nbsp;<span>7.5</span></a> в выражениях закона Гука, и периодических потенциалов взаимодействия, описываемые рядами <a href="1-interactions.html#eq-U-torsion">Ур.&nbsp;<span>7.6</span></a>, <a href="1-interactions.html#eq-U-flat">Ур.&nbsp;<span>7.7</span></a>.</p>
+<div class="page-columns page-full"><p>Несколько иначе обстоит дело с первичной оценкой параметров нековалентных взаимодействий, их получают из множества симуляций чистых жидкостей (алканов, спиртов, амидов и т.д.), нацеленных на воспроизведение макроскопических свойств<a href="#fn12" class="footnote-ref" id="fnref12" role="doc-noteref"><sup>12</sup></a>, например, теплот испарения и <span class="math inline">\(\Delta_\t{vap} H\)</span> и плотностей. Полученные на каждом этапе оценки вовлекаются в дальнейшие расчёты и многократно и последовательно уточняются, чтобы прийти к согласию с экспериментальными данными.</p><div class="no-row-height column-margin column-container"><li id="fn12"><p><sup>12</sup>&nbsp;тогда как для ковалентные взаимодействия первоначально аппроксимируются на атомных масштабах</p></li></div></div>
+<p>Для уточнения параметров ковалентных взаимодействий результаты расчётов также приводят к соответствию с экспериментальными данными:</p>
+<ul>
+<li>совпадению частот колебаний в ИК-спектрах;</li>
+<li>воспроизводимости экспериментальных геометрий;</li>
+<li>воспроизведению конформаций (распределений величин углов, длин связей, межатомных расстояний по данным РСА;</li>
+</ul>
+<p>также параметры, рассчитанные в вакууме, переоцениваются в непрерывной среде.</p>
+<p>И на микро-, и на макроскопические свойства веществ влияют как ковалентные, так и нековалентные взаимодействия, однако при разработке СП итеративный подход с последовательным уточнением сначала одних, затем других параметров оказывается проще. Это не в полной мере относится к параметрам молекулы воды. В нормальной случае природные молекулы моделируют в водной среде, т/е доля «водных» атомов в системе сверху ограничена только 100%ми. Вклад растворителя в ТД свойства системы пропорционален его доле и может быть решающим, также он играет большую роль при воспроизведении экспериментальных данных.</p>
+</section>
+<section id="учёт-анизотропии" class="level3">
+<h3 class="anchored" data-anchor-id="учёт-анизотропии">Учёт анизотропии</h3>
+<p>Представление атома как точечного заряда не всегда адекватно описывает реальное положение вещей. Приведём несколько примеров.</p>
+<ol type="1">
+<li>Атом кислорода в молекуле воды обладает двумя неподелёнными электронными парами, их наличие можно довольно точно учесть, если к описанию молекулы воды тремя материальными зарядами (по одному на каждый атом) добавить два нематериальных отрицательных задяда, поместив их позади атома кислорода (см. <a href="#sec-water-models"><span>Глава&nbsp;10.2</span></a>).</li>
+<li>Атомы тяжёлых галогенов s:{X} обладают высокой поляризуемостью, в некоторых галогенпроизводных s:{RX} электронное окружение атома галогена может быть смещено к заместителю s:{R}, приводя к обнажению небольшого положительного заряда (т.н. <span class="math inline">\(\sigma\)</span>-дырки) на атоме галогена со стороны <span class="citation" data-cites="Lu2012">[<a href="#ref-Lu2012" role="doc-biblioref">3</a>]</span>, противоположной связи s:{R-X}. Этот положительный заряд может участвовать в электростатических взаимодействиях с другими атомами, образуя <em>галогеновые связи</em> (по аналогии с водородными). <span class="math inline">\(\sigma\)</span>-Дырки могут быть описаны добавлением небольшого положительного заряда в нужною область пространство вблизи атома галогена.</li>
+<li>По аналогичным причинам <span class="math inline">\(\pi\)</span>-облака могут участвовать в координационных <span class="math inline">\(\pi\)</span>-взаимодействиях <span class="citation" data-cites="Hunter1990">[<a href="#ref-Hunter1990" role="doc-biblioref">4</a>]</span>, которые можно учесть добавив 2 отрицательных заряда к каждому атому углерода.</li>
+</ol>
+<p>Более продвинутые подходы для учёта анизотропии обсуждаются в <a href="#sec-polarizable-ff"><span>Глава&nbsp;10.3.1</span></a>.</p>
+</section>
+<section id="resp" class="level3 page-columns page-full">
+<h3 class="anchored" data-anchor-id="resp">RESP</h3>
+<div class="page-columns page-full"><p>Заряды на атомах сильно зависят от их связей с другими атомами, поэтому зачастую СП не содержат параметров заряда, требуя их явного указания. Для расчёта зарядов применяется метод RESP<a href="#fn13" class="footnote-ref" id="fnref13" role="doc-noteref"><sup>13</sup></a> <span class="citation" data-cites="Bayly1993">[<a href="#ref-Bayly1993" role="doc-biblioref">5</a>]</span>. Приведём его кратное описание.</p><div class="no-row-height column-margin column-container"><li id="fn13"><p><sup>13</sup>&nbsp;Restrained Electrostatic Potential</p></li></div></div>
+<ol type="1">
+<li>Для целевой молекулы должна быть найдена оптимальная геометрия, для сложных органических молекул рекомендуется использовать приближение теории возмущений Мёллера – Плессе 2го порядка (<code>MP2</code>).</li>
+<li>Рассчитывается значение электростатического потенциала <span class="math inline">\(V_i\)</span> (в базисе <code>6-31G*</code>) в разных точках <span class="math inline">\(i\)</span> на небольшом удалении от молекулы.</li>
+<li>Методом наименьших квадратов находятся оценки зарядов на атомах:
+<ul>
+<li><p>Записывается выражение оценки потенциала <span class="math inline">\(\hat V_i\)</span> через заряды: <span class="math display">\[
+\hat V_i = \sum_j \dfrac{\hat q_j}{r_{i,j}} \qquad i, j = 1..N,
+\]</span> где <span class="math inline">\(\hat q_j\)</span> — искомая оценка заряда для атома <span class="math inline">\(j\)</span>, <span class="math inline">\(r_{i,j}\)</span> — расстояние от атома <span class="math inline">\(j\)</span> до точки <span class="math inline">\(i\)</span> измерения потенциала <span class="math inline">\(V_i\)</span>.</p></li>
+<li><p>Определяется выражение целевой функции для метода наименьших квадратов: <span class="math display">\[
+\chi^2 = \ub{\sum_i (V_i - \hat V_i)^2}_{\chi^2_\t{esp}} + \ub{a \sum_j (\hat{\hat{q}}_j - \hat q_j)^2}_{\chi^2_\t{rstr}} \to \min_{\hat q_1, \cdots, \hat q_N},
+\]</span> где <span class="math inline">\(\hat{\hat{q}}_j\)</span> — грубая оценка искомого заряда, используемая для регуляризации<a href="#fn14" class="footnote-ref" id="fnref14" role="doc-noteref"><sup>14</sup></a>, <span class="math inline">\(a\)</span> — числовой коэффициент, <span class="math inline">\(\chi^2_\t{esp}\)</span> и <span class="math inline">\(\chi^2_\t{rstr}\)</span> — квадратичные невязки на величину потенциала и регуляризацию.</p></li>
+<li><p>Ищется экстремум целевой функции, отвечающий минимуму: <span class="math display">\[
+\pdv{\chi^2}{\hat q_j} = \pdv{\chi^2_\t{esp}}{\hat q_j} + \pdv{\chi^2_\t{rstr}}{\hat q_j} = 0 \qquad j = 1..N.
+\]</span> Исходя из симметрии молекулы задаются ограничения на эквивалентность атомов <span class="math inline">\(k\)</span> и <span class="math inline">\(l\)</span>: <span class="math inline">\(\hat q_k = \hat q_l\)</span>. Полученные оценки <span class="math inline">\(\hat q_j\)</span> используются как параметры заряда атомов в ходе МД.</p></li>
+</ul></li>
+</ol>
+<div class="no-row-height column-margin column-container"><li id="fn14"><p><sup>14</sup>&nbsp;штраф за отклонение оценок от некоторых грубых, но разумных значений</p></li></div></section>
+<section id="sec-ff-differences" class="level3 page-columns page-full">
+<h3 class="anchored" data-anchor-id="sec-ff-differences">Различия классических силовых полей <span class="citation" data-cites="Guvench2008">[<a href="#ref-Guvench2008" role="doc-biblioref">6</a>]</span></h3>
+<p>Принципы, лежащие в основе построения силовых полей, во многом близки, однако стоит отметить и различия.</p>
+<ol type="1">
+<li><p>В некоторых СП семейств <code>OPLS</code>, <code>GROMOS</code> и <code>CHARMM</code> неполярные атомы водорода, например, при алифатических атомах углерода, опускаются, т.е. группа s:{-CH2-} представляется одним псевдоатомом углерода, его масса, заряд и другие параметры разработаны так, чтобы в МД походить на метиленовую группу. С одной стороны это ухудшает качество модели, с другой позволяет не тратить время на расчёт иногда не слишком важных взаимодействий. Сообщается, что в этом подходе число вычислений может уменьшаться до 10 раз. <span class="citation" data-cites="Kmiecik2016">[<a href="#ref-Kmiecik2016" role="doc-biblioref">7, с. 7903</a>]</span></p></li>
+<li><p>В СП для описания плоских групп вводятся псевдоторсионные углы <span class="math inline">\(\xi\)</span>, призванные удерживать 4 произвольных атома в одной плоскости. В полях семейств <code>AMBER</code> и <code>OPLS-AA</code> потенциал, накладываемый на этот угол имеет периодический характер <span class="citation" data-cites="amber21">[<a href="#ref-amber21" role="doc-biblioref">8, с. 275</a>]</span>: <span class="math display">\[
+U \propto 1 + \cos (n (\xi - \bar \xi)) \qquad n = 2,
+\]</span> в полях <code>CHARMM</code> и <code>GROMOS</code> — вводится отдельный параболический потенциал аналогично с длинами связей и валентными углами <span class="citation" data-cites="gromacs2022">[<a href="#ref-gromacs2022" role="doc-biblioref">9</a>, ур. 196]</span>: <span class="math display">\[
+U \propto (\xi - \bar \xi)^2.
+\]</span></p></li>
+<li><p>СП семейства <code>CHARMM</code> имеют дополнительный терм — т.н. потенциал Юри-Брэдли <span class="citation" data-cites="namd-potential">[<a href="#ref-namd-potential" role="doc-biblioref">10</a>]</span>. Для описания напряжения, возникающего для тройки ковалентно связанных атомов s:{X-Y-Z}, вводится 2 параболических потенциала: первый, на величину валентного угла <span class="math inline">\(\theta = \widehat{\rm{X, Y, Z}}\)</span>, второй на расстояние <span class="math inline">\(r_t = |\bf r_{\rm X} - \bf r_{\rm Z}|\)</span> между терминальными атомами в тройке. Таким образом, потенциал валентного угла <span class="math display">\[
+U_a = k_\theta (\theta - \bar \theta)^2 + k_t (r_t - \bar r_t)^2,
+\]</span> добавление новых степеней свободы в СП мотивировано попыткой лучшего описания колебательный спектров.</p></li>
+<li><p>Вид потенциала взаимодействия двух ковалентно несвязанных атомов s:{X} и s:{Y} задаются уравнением Ленарда — Джонса <a href="1-interactions.html#eq-U-LJ">Ур.&nbsp;<span>7.10</span></a>. Его можно переформулировать через параметры глубины потенциальной ямы (энергии взаимодействия) <span class="math inline">\(\epsilon_{\ce X, \ce Y}\)</span> и соответствующего ей расстояния <span class="math inline">\(r^{\min}_{\ce X,\ce Y}\)</span>: <span class="math display">\[
+U_\t{LJ}(r) = \epsilon_{\ce X, \ce Y} \left\{ \left(\dfrac{r^\t{min}_{\ce X, \ce Y}}{r}\right)^{12} - 2 \left(\dfrac{r^\t{min}_{\ce X, \ce Y}}{r} \right)^6 \right\}.
+\]</span> Если природа взаимодействующих атомов идентична (s:{X} <span class="math inline">\(=\)</span> s:{Y}), то параметры <span class="math inline">\(\epsilon_{\ce X, \ce X}\)</span> и <span class="math inline">\(r^{\min}_{\ce X, \ce X}\)</span> берутся непосредственно из СП для соответствующего s:{X} типа атома, если s:{X} <span class="math inline">\(\ne\)</span> s:{Y}, то параметры попарных взаимодействий необходимо вычислять. В силовых полях <code>OPLS-AA</code> и <code>GROMOS</code> они вычисляются как среднее геометрическое <span class="math display">\[
+\epsilon_{\ce X,\ce Y} := \sqrt{\epsilon_{\ce X, \ce X} \cdot \epsilon_{\ce Y,\ce Y}}, \qquad r^{\min}_{\ce X,\ce Y} := \sqrt{r^{\min}_{\ce X,\ce X} \cdot r^{\min}_{\ce Y,\ce Y}},
+\]</span> в силовых полях <code>CHARMM</code> и <code>AMBER</code> аналогично вычисляется <span class="math inline">\(\epsilon_{\ce X,\ce Y}\)</span>, а <span class="math inline">\(r^{\min}_{\ce X,\ce Y}\)</span> как среднее арифметическое: <span class="math display">\[
+r^{\min}_{\ce X,\ce Y} = \dfrac 1 2 ( r^{\min}_{\ce X,\ce X} + r^{\min}_{\ce Y,\ce Y} ).
+\]</span></p></li>
+<li><p>Поскольку параметры потенциала вычисляются для пар разных атомов по весьма простым правилам, для лучшей воспроизводимости экспериментальных барьеров вращения торсионных углов в разных СП вводятся масштабирующие множители к <strong>1-4 взаимодействиям</strong>. В <code>AMBER</code> величина кулоновских и леннардджонсоновских взаимодействия умножаются на <span class="math inline">\(1 / 2\)</span> и <span class="math inline">\(5 / 6\)</span> соответственно, в <code>OPLS-AA</code> оба на <span class="math inline">\(1 / 2\)</span>, <code>GROMOS</code> и <code>CHARMM</code> применяют разные корректировки к разным парам атомов.</p></li>
+<li><p>Для лучшего описания пар торсионных углов <span class="math inline">\(\alpha\)</span> и <span class="math inline">\(\beta\)</span> в <code>CHARMM</code> (и затем в других СП) появились CMAP<a href="#fn15" class="footnote-ref" id="fnref15" role="doc-noteref"><sup>15</sup></a> — дискретные энергетические поправки, представляющий собой матрицы из чисел для всех значений пары двугранных углов <span class="math inline">\(\alpha\)</span> и <span class="math inline">\(\beta\)</span> с шагом <span class="math inline">\(15^\circ\)</span>, т.е. <span class="math display">\[
+(\delta U)_{i,j} \quad \colon \quad \alpha_i, \beta_j = -180^\circ, -165^\circ, \cdots, +165, +180^\circ,
+\]</span> на основе этой сетки конструируется непрерывная функция, которая используется для коррекции энергии <span class="citation" data-cites="Bjelkmar2010">[<a href="#ref-Bjelkmar2010" role="doc-biblioref">11</a>]</span>.</p></li>
+</ol>
+<div class="no-row-height column-margin column-container"><li id="fn15"><p><sup>15</sup>&nbsp;Correction MAP</p></li></div></section>
+</section>
+<section id="sec-water-models" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="sec-water-models">Модели воды <span class="citation" data-cites="Onufriev2018">[<a href="#ref-Onufriev2018" role="doc-biblioref">12</a>]</span></h2>
+<p>Молекула воды обладает высоким дипольным моментом (в следствие анизотропии, вызванной неподелёнными электронными парами, и высокой электроотрицательностью кислорода) и способна образовывать 4 водородные связи: 2 будучи донором, 2 как акцептор. Помимо этого, объёмные электронные облака атома кислорода в окружении молекул с высоким дипольным моментом подвергаются поляризации. Классические СП не могут учесть явно ни наличие неподелённых электронных пар, ни поляризацию, поэтому для представления молекул воды были разработаны специальные подходы.</p>
+<section id="tipnp" class="level3 page-columns page-full">
+<h3 class="anchored" data-anchor-id="tipnp"><code>TIP</code><span class="math inline">\(n\)</span><code>P</code></h3>
+<div class="page-columns page-full"><p>Как было сказано ранее, обычно в МД большая часть атомов системы относится к растворителю, поэтому существует большой соблазн оптимизировать его модель так, чтобы большая часть вычислительных ресурсов не уходила на рассчёт взаимодействий между молекулами воды. Наиболее часто используемое семейство СП для описания воды — <code>TIP</code><span class="math inline">\(n\)</span><code>P</code><a href="#fn16" class="footnote-ref" id="fnref16" role="doc-noteref"><sup>16</sup></a>, где <span class="math inline">\(n = 2..6\)</span> — число материальных точек, аппроксимирующих электронную плотность молекулы воды; взаимное расположение этих точек фиксировано, т.е. жёсткость связей и валентных углов не берётся в расчёт для экономии вычислительных ресурсов; в межмолекулярном взаимодействии участвует только атом кислорода, который имеет потенциал Ленарда — Джонса, другие частицы в системе его не имеют<a href="#fn17" class="footnote-ref" id="fnref17" role="doc-noteref"><sup>17</sup></a>.</p><div class="no-row-height column-margin column-container"><li id="fn16"><p><sup>16</sup>&nbsp;Transferable Intermolecular Potential with <span class="math inline">\(n\)</span> Points</p></li><li id="fn17"><p><sup>17</sup>&nbsp;в более общих реализациях <code>TIP</code><span class="math inline">\(n\)</span><code>P</code>, потенциал можно задавать для всех частиц в молекуле</p></li></div></div>
+<div class="page-columns page-full"><p>Первой моделью была <code>TIP3P</code> <span class="citation" data-cites="Jorgensen1981">[<a href="#ref-Jorgensen1981" role="doc-biblioref">13</a>]</span>, в ней молекула воды описывается тремя зарядами, находящимися в центре трёх её атомов. Затем для учёта квадрупольного момента<a href="#fn18" class="footnote-ref" id="fnref18" role="doc-noteref"><sup>18</sup></a> была предложена <span class="citation" data-cites="Jorgensen1983">[<a href="#ref-Jorgensen1983" role="doc-biblioref">14</a>]</span> модель <code>TIP4P</code>, в которой вводится четвёртый заряд, помещаемый близко к условному центру молекулы. Наконец, появилась модель <code>TIP5P</code>, в которой каждой неподелённой паре кислорода приписывается нематериальный заряд. Существуют также <code>TIP2P</code>, в которой молекула воды описывается простым диполем, и <code>TIP6P</code> — комбинация подходов <code>TIP5P</code> и <code>TIP4P</code>, т.е. 2 дополнительных заряда аппроксимируют электронную плотность позади атома кислорода и 1 — около геометрического центра.</p><div class="no-row-height column-margin column-container"><li id="fn18"><p><sup>18</sup>&nbsp;иными словами, анизотропии электронной плотности</p></li></div></div>
+<p>Несмотря на то что усложнение модели приводит к повышению её точности и лучшему описанию экспериментальных данных, модель воды <code>TIP3P</code> сейчас используется наиболее часто ввиду того, что при достаточно точном описании позволяет существенно сократить затраты на расчёты.</p>
+<p>В подходе к разработке СП (<a href="#sec-ff-development"><span>Глава&nbsp;10.1.1</span></a>), когда результаты расчётов итеративно подводят под согласие с термодинамическими или спектроскопическими данными, параметры СП неизбежно зависят от выбранной модели воды, что приводит к концепции <em>самосогласованности</em> силовых полей: поскольку все числовые параметры находятся в сложной зависимости друг от друга, рекомендуется использовать только те наборы параметров, которые использовались при создании СП и рекомендуются его разработчиками. Например, если СП для молекулы белка было разработано для использования с моделью воды <code>TIP3P</code>, то использование модели <code>TIP6P</code> в нормальном случае приведёт к ухудшению результатов, поскольку СП белка было оптимизировано для работы с более простой моделью растворителя.</p>
+</section>
+<section id="opc" class="level3 page-columns page-full">
+<h3 class="anchored" data-anchor-id="opc"><code>OPC</code></h3>
+<div class="page-columns page-full"><p>Геометрия молекулы воды в моделях <code>TIP</code><span class="math inline">\(n\)</span><code>P</code> берётся из геометрии молекулы в газовой фазе. Иной подход был использован при разработке модели <code>OPC</code><a href="#fn19" class="footnote-ref" id="fnref19" role="doc-noteref"><sup>19</sup></a>, геометрия которой была <em>оптимизирована</em> с одним лишь ограничением — в группе симметрии <span class="math inline">\(C_{2v}\)</span>. Как и <code>TIP4P</code> молекула воды в <code>OPC</code> состоит из 4х точек: условного атома кислорода, создающего потенциал Леннарда — Джонса, но <strong>не обладающего зарядом</strong>, и 3х точек (условно, двух водородов и одного кислорода), аппроксимирующих электростатический потенциал, но не имеющих параметров вандерваальсовых взаимодействий. Таким образом, заряд атома кислорода находится не в его центре. Модель <code>OPC</code> хорошо воспроизводит рассчитанный квантовыми методами распределение заряда и физические свойства жидкой воды и в большинстве случаев показывает себя лучше, чем <code>TIP3P</code>. Разработчики СП <code>ff19SB</code> (семейство <code>AMBER</code>) использовали <code>OPC</code> при разработке и рекомендуют использовать при расчётах.</p><div class="no-row-height column-margin column-container"><li id="fn19"><p><sup>19</sup>&nbsp;Optimal Point Charges</p></li></div></div>
+</section>
+</section>
+<section id="неклассические-силовые-поля" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="неклассические-силовые-поля">Неклассические силовые поля</h2>
+<section id="sec-polarizable-ff" class="level3 page-columns page-full">
+<h3 class="anchored" data-anchor-id="sec-polarizable-ff">Поляризуемые силовые поля</h3>
+<p>На атомных масштабах представление атома в виде материальной точки может оказаться слишком простым. Тот факт, что электронная плотность динамически подстраивается под влияние окружающего поля и атомного ядра приводит к явлению анизотропии, которое невозможно описать в рамках классических силовых полей. Для учёта этого эффекта разработан ряд подходов <span class="citation" data-cites="Jing2019">[<a href="#ref-Jing2019" role="doc-biblioref">15</a>]</span>, которые, однако, на практике применяются не очень часто ввиду того, что требуют бóльших вычислений, но с каждым годом использование этих методов становится всё более оправданным <span class="citation" data-cites="Baker2015">[<a href="#ref-Baker2015" role="doc-biblioref">16</a>]</span>.</p>
+<p>Полная энергия электростатического взаимодействия <span class="math display">\[
+E_t = E_q + E_p,
+\]</span> где <span class="math inline">\(E_q\)</span> — сумма кулоновских потенциалов, <span class="math inline">\(E_p\)</span> — работа по перераспределению индуцированных зарядов, вид которой (обычно квадратичный) в разных подходах различен.</p>
+<div id="tbl-ff-polarizable" class="anchored page-columns page-full">
+<table class="table">
+
+<colgroup>
+<col style="width: 22%">
+<col style="width: 23%">
+<col style="width: 54%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>силовое поле</th>
+<th>метод</th>
+<th>пакет ПО</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>AMBER</code></td>
+<td>инд. диполи</td>
+<td><code>AMBER</code></td>
+</tr>
+<tr class="even">
+<td><code>AMOEBA</code></td>
+<td>инд. диполи</td>
+<td><code>AMBER</code>, <code>TINKER</code>, <code>OpenMM</code></td>
+</tr>
+<tr class="odd">
+<td><code>CHARMM-Drude</code></td>
+<td>«заряды на пружинах»</td>
+<td><code>AMBER</code>, <code>CHARMM</code>, <code>NAMD</code>, <code>GROMACS</code>, <code>OpenMM</code></td>
+</tr>
+<tr class="even">
+<td><code>CHARMM-FQ</code></td>
+<td>колебл. заряды</td>
+<td><code>CHARMM</code></td>
+</tr>
+<tr class="odd">
+<td><code>SIBRA</code></td>
+<td>инд. диполи</td>
+<td><code>TINKER</code></td>
+</tr>
+<tr class="even">
+<td><code>ABEEM</code><span class="math inline">\(\sigma \pi\)</span></td>
+<td>колебл. заряды</td>
+<td><code>TINKER</code></td>
+</tr>
+</tbody>
+</table>
+<div class="quarto-table-caption margin-caption">Таблица&nbsp;10.2: Поляризуемые силовые поля</div></div>
+<section id="колеблющиеся-заряды" class="level4 page-columns page-full">
+<h4 class="anchored page-columns page-full" data-anchor-id="колеблющиеся-заряды">Колеблющиеся заряды<a href="#fn20" class="footnote-ref" id="fnref20" role="doc-noteref"><sup>20</sup></a><div class="no-row-height column-margin column-container"><li id="fn20"><p><sup>20</sup>&nbsp;англ. fluctuating charges</p></li></div></h4>
+<p>В методе колеблющихся зарядов взаимодействие между атомами рассчитывается аналогично тому, как это реализовано в неполяризуемых СП. Отличие заключается в том, что частичные атомные заряды получают свои степени свободы в уравнении движения и могут перетекать по связям в молекулярном графе, причём это реализуется непосредственно в СП: заряду приписывается некоторая инертность (аналог массы), и заряд, участвуя во взаимодействиях, испытывает на себе влияние других зарядов и, соответственно, стремится выгодно перераспределиться в молекуле. <span class="math display">\[
+E_p := \sum_i (\chi_i q_i + \eta_i q_i^2),
+\]</span> где <span class="math inline">\(\chi\)</span> и <span class="math inline">\(\eta\)</span> — электроотрицательность (<span class="math inline">\(\partial E_p / \partial q\)</span>) и жёсткость (<span class="math inline">\(\partial^2 E_p / \partial q^2\)</span>) соответственно. Этот подход применим только для описания поляризации, возникающей вдоль химической связи, и, например, не способен описать перераспределение электронной плотности в <span class="math inline">\(\pi\)</span>-облаках ароматических колец.</p>
+</section>
+<section id="заряды-на-пружинах" class="level4 page-columns page-full">
+<h4 class="anchored page-columns page-full" data-anchor-id="заряды-на-пружинах">«Заряды на пружинах»<a href="#fn21" class="footnote-ref" id="fnref21" role="doc-noteref"><sup>21</sup></a><div class="no-row-height column-margin column-container"><li id="fn21"><p><sup>21</sup>&nbsp;англ. Drude oscillators или <em>charges on springs</em></p></li></div></h4>
+<p>В модели заряда на пружинах каждый атом представляется в виде пары зарядов: один находится в центре атома и обладает массой, а второй нематериальный заряд крепится к первому с помощью относительно короткой пружины жёсткость <span class="math inline">\(k\)</span>. В ходе расчёта заряд частиц остаётся постоянным, но его распределение в пространстве меняется вследствие того, что нематериальный заряд свободно перемещается относительно центрального на величину смещения <span class="math inline">\(\bf d\)</span>, подстраиваясь под внешнее поле (и создавая дипольный момент): <span class="math display">\[
+E_p := \dfrac 1 2 \sum_i k_i \bf d_i^2.
+\]</span> В отличие от метода колеблющихся зарядов, в этом приближении делается попытка описания электронной плотности молекулы, а не просто перераспределения частичных зарядов.</p>
+</section>
+<section id="индуцируемые-диполи" class="level4">
+<h4 class="anchored" data-anchor-id="индуцируемые-диполи">Индуцируемые диполи</h4>
+<p>В методе индуцированного диполя каждому атому приписывается поляризуемость <span class="math inline">\(\alpha\)</span> и динамически вычисляется индуцированный дипольный момент: <span class="math display">\[
+\mu = \alpha E,
+\]</span> где <span class="math inline">\(E\)</span> — напряжённость внешнего поля и <span class="math display">\[
+E_p = \dfrac 1 2 \sum_i \dfrac {\bm \mu_i^2}{\alpha_i}.
+\]</span> В этом подходе явным образом вводится новая сущность — диполь, соответственно СП должно включать термы для описания взаимодействий диполь—диполь и диполь—заряд.</p>
+</section>
+</section>
+<section id="крупнозернистые-силовые-поля-kmiecik2016" class="level3 page-columns page-full">
+<h3 class="anchored page-columns page-full" data-anchor-id="крупнозернистые-силовые-поля-kmiecik2016">Крупнозернистые<a href="#fn22" class="footnote-ref" id="fnref22" role="doc-noteref"><sup>22</sup></a> силовые поля <div class="no-row-height column-margin column-container"><li id="fn22"><p><sup>22</sup>&nbsp;от англ. coarse-grained force fields</p></li></div><span class="citation" data-cites="Kmiecik2016">[<a href="#ref-Kmiecik2016" role="doc-biblioref">7</a>]</span></h3>
+<p>Поляризуемые СП стремятся пожертвовать скоростью в пользу точности, но даже классические СП зачастую слишком ресурсозатратны для моделирования надмолекулярных систем: клеточных мембран, цепей нуклеиновых кислот и полисахаридов, и даже белков. В <a href="#sec-ff-differences"><span>Глава&nbsp;10.1.4</span></a> отмечалось, что неполярные атомы водорода для экономии вычислительных ресурсов могут опускаться, однако в подходе крупнозернистых (КЗ) полей — целые группы атомов упрощаются до одного псевдоатома.</p>
+<p>Важной задачей является моделирования сворачивания белков, однако при текущей доступности ресурсов классическая МД ограничена размером системы и временем её моделирования, поэтому изучению этим методом поддаётся лишь малое множество объектов — небольшие быстро сворачивающиеся белки; появление КЗ СП обусловлено желанием перенести МД на масштабы и времена бóльших биологических систем.</p>
+<div id="fig-coarse-grained-representation" class="quarto-figure quarto-figure-center anchored page-columns page-full">
+<figure class="figure page-columns page-full">
+<p><a href="../imgs/coarse-grained-representation.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Представление пептида в различных крупнозернистых подходах @Kmiecik2016"><img src="../imgs/coarse-grained-representation.png" class="img-fluid figure-img" style="width:50.0%"></a></p>
+<figcaption class="figure-caption margin-caption">Рисунок&nbsp;10.1: Представление пептида в различных крупнозернистых подходах <span class="citation" data-cites="Kmiecik2016">[<a href="#ref-Kmiecik2016" role="doc-biblioref">7</a>]</span></figcaption>
+</figure>
+</div>
+<p>На примере белков отметим ряд общих подходов, используемых при построении крупнозернистых силовых полей:</p>
+<ol type="1">
+<li><p>Группы атомов объединяются в один псевдоатом, так полипептидная цепь на разных уровнях детализации может представлять собой: <em>а</em>) полноатомную цепь с опущенными неполярными атомами водорода; <em>б</em>) идеализированную цепь, состоящую из «бусин»<a href="#fn23" class="footnote-ref" id="fnref23" role="doc-noteref"><sup>23</sup></a> (нескольких атомов, слитых в один псевдоатом) — аминокислотных остовов, к которым крепятся 2 типа бусин боковых остатков (полярные и неполярные); в) цель состоящую из одинаковых бусин. Так же возможно большое число промежуточных вариантов <a href="#fig-coarse-grained-representation">Рис&nbsp;<span>10.1</span></a>.</p></li>
+<li><p>Псевдоатомы параметризуется так, чтобы походить в МД на исходную группу. Для этого применяются два подхода. В первом: данные, полученные из моделирования бековой глобулы с классическим силовым полем, используются для разработки необходимых параметров, при этом используется итеративная процедура, в которой результат моделирования КЗ ансамбля последовательно подводится под воспроизведение свойств классического; в качестве целевой метрики может использоваться <em>радиальная функция распределения</em> <span class="math display">\[
+\rho (r) \propto \dfrac 1 {4 \pi r^2} \dfrac{\dd N(r)}{\dd r},
+\]</span> показывающая пространственное распределение числа частиц <span class="math inline">\(N\)</span> на расстоянии <span class="math inline">\(r\)</span> от выбранной точки<a href="#fn24" class="footnote-ref" id="fnref24" role="doc-noteref"><sup>24</sup></a>, эта функция ёмко описывает порядок между частицами в системе. Во втором подходе не используются косвенные данные, полученные из ансамблей более точных моделей МД, вместо этого используются арсенал методов, применяемый при построении классических силовых полей: данные квантового моделирования и эксперимента.</p></li>
+<li><p>Атомы в классических моделях существуют в непрерывном пространстве, КЗ модели могут вводить дискретные пространства, или <em>решётки</em>, т.е. атомы в них могут находиться только в конечном числе точек пространства, что значительно ускоряет время расчёта.</p></li>
+<li><p>Длина связи между псеводоатомами в КЗ моделях может быть фиксированной, т.е. изменение конформации белка будет возможно только за счёт вращения вокруг связи.</p></li>
+<li><p>Степени свободы валентных углов также могут ограничиваться, например, положение, которое боковая цепь занимает по отношению к основной цепи, может быть детерминированной функций от координат псевдоатомов, например, псевдоатом боковой группы может лежать на биссектрисе угла, образованного тремя атомами остова.</p></li>
+</ol>
+<div class="no-row-height column-margin column-container"><li id="fn23"><p><sup>23</sup>&nbsp;англ. beads</p></li><li id="fn24"><p><sup>24</sup>&nbsp;на практике может строиться гистограмма всех попарных расстояний между частицами в системе, полученное распределение и есть радиальная функция распределения</p></li></div><p>Следует подчеркнуть, что в КЗ подходах можно получать точные оценки свободной энергии, однако при оценке энтропийного вклада требуется внесение поправок для учёта меньшего числа частиц в системе.</p>
+
+
+</section>
+</section>
+<section id="bibliography" class="level1 unnumbered">
+<h1 class="unnumbered">Источники</h1>
+<div id="refs" class="references csl-bib-body" role="list">
+<div id="ref-Tian2020" class="csl-entry" role="listitem">
+<div class="csl-left-margin">1. </div><div class="csl-right-inline">Tian C. и др. <a href="https://doi.org/10.1021/acs.jctc.9b00591">ff19SB: Amino-Acid-Specific Protein Backbone Parameters Trained against Quantum Mechanics Energy Surfaces in Solution</a> // J. Chem. Theory Comput. American Chemical Society, 2020. Т. 16, № 1. С. 528–552.</div>
+</div>
+<div id="ref-Dickson2014" class="csl-entry" role="listitem">
+<div class="csl-left-margin">2. </div><div class="csl-right-inline">Dickson C.J. и др. <a href="https://doi.org/10.1021/ct4010307">Lipid14: The Amber Lipid Force Field</a> // J. Chem. Theory Comput. American Chemical Society, 2014. Т. 10, № 2. С. 865–879.</div>
+</div>
+<div id="ref-Lu2012" class="csl-entry" role="listitem">
+<div class="csl-left-margin">3. </div><div class="csl-right-inline">Lu Y. и др. <a href="https://doi.org/10.1517/17460441.2012.678829">Halogen bonding for rational drug design and new drug discovery</a> // Expert Opin. Drug Discov. 2012. Т. 7, № 5. С. 375–383.</div>
+</div>
+<div id="ref-Hunter1990" class="csl-entry" role="listitem">
+<div class="csl-left-margin">4. </div><div class="csl-right-inline">Hunter C.A., Sanders J.K.M. <a href="https://doi.org/10.1021/ja00170a016">The nature of .pi.-.pi. interactions</a> // J. Am. Chem. Soc. American Chemical Society, 1990. Т. 112, № 14. С. 5525–5534.</div>
+</div>
+<div id="ref-Bayly1993" class="csl-entry" role="listitem">
+<div class="csl-left-margin">5. </div><div class="csl-right-inline">Bayly C.I. и др. <a href="https://doi.org/10.1021/j100142a004">A well-behaved electrostatic potential based method using charge restraints for deriving atomic charges: the RESP model</a> // J. Phys. Chem. American Chemical Society, 1993. Т. 97, № 40. С. 10269–10280.</div>
+</div>
+<div id="ref-Guvench2008" class="csl-entry" role="listitem">
+<div class="csl-left-margin">6. </div><div class="csl-right-inline">Guvench O., MacKerell A.D. <a href="https://doi.org/10.1007/978-1-59745-177-2_4">Comparison of protein force fields for molecular dynamics simulations</a> // Methods Mol Biol. 2008. Т. 443. С. 63–88.</div>
+</div>
+<div id="ref-Kmiecik2016" class="csl-entry" role="listitem">
+<div class="csl-left-margin">7. </div><div class="csl-right-inline">Kmiecik S. и др. <a href="https://doi.org/10.1021/acs.chemrev.6b00163">Coarse-Grained Protein Models and Their Applications</a> // Chem. Rev. American Chemical Society, 2016. Т. 116, № 14. С. 7898–7936.</div>
+</div>
+<div id="ref-amber21" class="csl-entry" role="listitem">
+<div class="csl-left-margin">8. </div><div class="csl-right-inline">Amber 2021 Reference Manual. 2021.</div>
+</div>
+<div id="ref-gromacs2022" class="csl-entry" role="listitem">
+<div class="csl-left-margin">9. </div><div class="csl-right-inline">Bauer P., Hess B., Lindahl E. <a href="https://doi.org/10.5281/zenodo.6103568">GROMACS 2022 manual</a>. Zenodo, 2022.</div>
+</div>
+<div id="ref-namd-potential" class="csl-entry" role="listitem">
+<div class="csl-left-margin">10. </div><div class="csl-right-inline">Potential energy functions [Электронный ресурс]. URL: <a href="https://www.ks.uiuc.edu/Research/namd/2.9/ug/node22.html">https://www.ks.uiuc.edu/Research/namd/2.9/ug/node22.html</a> (дата обращения: 29.04.2022).</div>
+</div>
+<div id="ref-Bjelkmar2010" class="csl-entry" role="listitem">
+<div class="csl-left-margin">11. </div><div class="csl-right-inline">Bjelkmar P. и др. <a href="https://doi.org/10.1021/ct900549r">Implementation of the CHARMM Force Field in GROMACS: Analysis of Protein Stability Effects from Correction Maps, Virtual Interaction Sites, and Water Models</a> // J. Chem. Theory Comput. 2010. Т. 6, № 2. С. 459–466.</div>
+</div>
+<div id="ref-Onufriev2018" class="csl-entry" role="listitem">
+<div class="csl-left-margin">12. </div><div class="csl-right-inline">Onufriev A.V., Izadi S. <a href="https://doi.org/10.1002/wcms.1347">Water models for biomolecular simulations</a> // WIREs Computational Molecular Science. John Wiley &amp; Sons, Ltd, 2018. Т. 8, № 2. С. e1347.</div>
+</div>
+<div id="ref-Jorgensen1981" class="csl-entry" role="listitem">
+<div class="csl-left-margin">13. </div><div class="csl-right-inline">Jorgensen W.L. <a href="https://doi.org/10.1021/ja00392a016">Quantum and statistical mechanical studies of liquids. 10. Transferable intermolecular potential functions for water, alcohols, and ethers. Application to liquid water</a> // J. Am. Chem. Soc. American Chemical Society, 1981. Т. 103, № 2. С. 335–340.</div>
+</div>
+<div id="ref-Jorgensen1983" class="csl-entry" role="listitem">
+<div class="csl-left-margin">14. </div><div class="csl-right-inline">Jorgensen W.L. и др. <a href="https://doi.org/10.1063/1.445869">Comparison of simple potential functions for simulating liquid water</a> // J. Chem. Phys. American Institute of Physics, 1983. Т. 79, № 2. С. 926–935.</div>
+</div>
+<div id="ref-Jing2019" class="csl-entry" role="listitem">
+<div class="csl-left-margin">15. </div><div class="csl-right-inline">Jing Z. и др. <a href="https://doi.org/10.1146/annurev-biophys-070317-033349">Polarizable force fields for biomolecular simulations: Recent advances and applications</a> // Annual Review of Biophysics. 2019. Т. 48, № 1. С. 371–394.</div>
+</div>
+<div id="ref-Baker2015" class="csl-entry" role="listitem">
+<div class="csl-left-margin">16. </div><div class="csl-right-inline">Baker C.M. <a href="https://doi.org/10.1002/wcms.1215">Polarizable force fields for molecular dynamics simulations of biomolecules</a> // WIREs Comput Mol Sci. 2015. Т. 5, № 2. С. 241–254.</div>
+</div>
+</div>
+</section>
+
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Скопировано");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Скопировано");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../03-molecular-mechanics/3-micro--and-macroparameters.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Микро- и макропараметры</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../03-molecular-mechanics/5-trajectories.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-title">Анализ траекторий</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<script>var lightboxQuarto = GLightbox({"loop":true,"closeEffect":"zoom","selector":".lightbox","descPosition":"bottom","openEffect":"zoom"});</script>
+
+
+
+</body></html>
