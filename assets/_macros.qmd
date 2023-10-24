@@ -1,9 +1,5 @@
 <script>
 window.MathJax = {
-  loader: { load: ["[tex]/physics"] },
-  tex: {
-    packages: { "[+]": ["physics"] },
-  },
   options: {
     enableMenu: false,
   },
@@ -12,6 +8,9 @@ window.MathJax = {
 
 <div class="hidden">
 $$
+\require{color}
+\require{physics}
+
 \def\bb{\mathbb}
 \def\bf{\mathbf}
 \def\cl{\mathcal}
@@ -34,6 +33,7 @@ $$
 \def\ub{\underbrace}
 \def\l{\left}
 \def\r{\right}
+\newcommand{\hi}[1] {{\color{blue} #1}}
 \renewcommand{\epsilon}{\varepsilon}
 \renewcommand{\phi}{\varphi}
 \renewcommand{\dd}{\, \rm d}

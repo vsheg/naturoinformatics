@@ -1,19 +1,18 @@
 project:
   type: book
-  output-dir: docs
+  output-dir: build/
 
 lang: ru
 
 repo-url: &repo-url https://github.com/vsheg/naturoinformatics
-site-url: https://naturoinformatics.sheg.cc
-telegram-channel: naturoinformatics
-telegram-chat: naturoinformatics_chat
+site-url: https://inf.sheg.cc
 
 book:
-  title: "*Естество*информатика"
+  title: Естествоинформатика
   subtitle: Вычислительная химия и биология
   author: Всеволод Щеголев
   google-analytics: "G-JZGJWN0T0F"
+  page-navigation: true
   sidebar:
     logo: assets/logo.svg
     contents:
@@ -26,27 +25,35 @@ book:
         href: *repo-url
   chapters:
     - index.qmd
-    - notation.qmd
-    - part: "Молекулярная динамика"
+    - 00-intro/notation.qmd
+    - part: Квантовая механика
       chapters:
-        - 3-molecular-mechanics/1-interactions.qmd
-        - 3-molecular-mechanics/2-integration.qmd
-        - 3-molecular-mechanics/3-micro--and-macroparameters.qmd
-        - 3-molecular-mechanics/4-force-fields.qmd
-        - 3-molecular-mechanics/5-trajectories.qmd
+        - 01-quantum-mechanincs/0-quantum-mechanics.qmd
+        - 01-quantum-mechanincs/1-wave-function.qmd
+        - 01-quantum-mechanincs/2-state-vectors.qmd
+        - 01-quantum-mechanincs/3-schrodinger-equation.qmd
+        - 01-quantum-mechanincs/4-hydrogen-like-ion.qmd
+        - 01-quantum-mechanincs/5-basis-sets.qmd
+    - part: Молекулярная динамика
+      chapters:
+        - 03-molecular-mechanics/1-interactions.qmd
+        - 03-molecular-mechanics/2-integration.qmd
+        - 03-molecular-mechanics/3-micro--and-macroparameters.qmd
+        - 03-molecular-mechanics/4-force-fields.qmd
+        - 03-molecular-mechanics/5-trajectories.qmd
     - part: Ускоренный семплинг
       chapters:
-        - 5-enhanced-sampling/1-metadynamics.qmd
-    - part: "Виртуальный скрининг"
+        - 05-enhanced-sampling/1-metadynamics.qmd
+    - part: Виртуальный скрининг
       chapters:
-        - 6-virtual-screening/1-docking.qmd
-    - part: "Рассчёт свободной энергии"
+        - 06-virtual-screening/1-docking.qmd
+    - part: Рассчёт свободной энергии
       chapters:
-        - 7-free-energy-calculation/1-fep.qmd
-        - 7-free-energy-calculation/2-alchemy.qmd
-    - part: "Хемоинформатика"
+        - 07-free-energy-calculation/1-fep.qmd
+        - 07-free-energy-calculation/2-alchemy.qmd
+    - part: Хемоинформатика
       chapters:
-        - 8-chemoinformatics/1-chemoinformatics.qmd
+        - 08-chemoinformatics/1-chemoinformatics.qmd
 
 bibliography: assets/citation.yaml
 reference-section-title: Источники
@@ -71,15 +78,19 @@ format:
     code-fold: true
     include-in-header:
       - assets/_macros.qmd
+    grid:
+      sidebar-width: 300px
+      body-width: 1200px
+      margin-width: 400px
 
-mainfont: Times New Roman
+mainfont: Georgia
 fontsize: 13pt
 linestretch: 1.25
 reference-location: margin
 
 callout-appearance: minimal
 
-# number-sections: false
+number-sections: false
 
 crossref:
   fig-prefix: Рис
@@ -87,20 +98,13 @@ crossref:
   eq-prefix: Ур.
 
 filters:
-  - pandoc-chem-struct
-  - filters/notae.py
   - lightbox
 
 lightbox: auto
 fig-format: svg
 
 number-depth: 2
-# cap-location: margin
-
-# ???
-max-width: 1000px
-margin-left: 0px
-margin-right: 0px
+cap-location: margin
 
 references:
   - id: astley1987

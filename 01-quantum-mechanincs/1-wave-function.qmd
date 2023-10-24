@@ -1,0 +1,107 @@
+## Волновое уравнение
+
+Колебания разной природы описываются _волновым уравнением_:
+$$\nabla^2 \xi = \dfrac 1 {v^2}\pdv[2]{\xi}{t},$$
+где $\xi = \xi(\bf r, t)$ --- _возмущение_ в точке $\bf r$ в момент $t$, $v$ --- _фазовая скорость_ распространения волны. 
+
+::: {.panel-tabset}
+
+# Возмущение
+```{python}
+from matplotlib import pyplot as plt
+from matplotlib.animation import FuncAnimation
+import numpy as np
+from IPython import display
+from functools import partial
+
+def plot(wave_func):
+    fig = plt.figure()
+    fig.set_size_inches(7, 2, True)
+    ax = plt.axes(xlim=(0, 3 * np.pi), ylim=(-1, 1))
+    ax.set_aspect('equal')
+    plt.xlabel('пространственная координата $x$')
+    plt.ylabel('возмущение $\\xi$')
+    line, = ax.plot([], [])
+    plt.margins(0.5)
+    
+    xs = np.linspace(0, 3 * np.pi, num=1000)
+
+    def animate(t):
+        ys = wave_func(xs, t)
+        line.set_data(xs, ys)
+        return line
+
+    anim = FuncAnimation(fig, animate,
+                        frames=np.linspace(0, 3 * np.pi, 30 * 3),
+                        interval=1000/30)
+
+    # show video
+    video = anim.to_html5_video()
+    html = display.HTML(video)
+    display.display(html)
+    plt.close()
+
+wave_shape = lambda x: x * np.exp(-x ** 2)
+wave_func = lambda x, t: wave_shape(x - t)
+plot(wave_func)
+```
+
+# Волновой пакет
+```{python}
+wave_shape = lambda x: np.sin(20 * x) * np.exp(-0.5 * x ** 2) # wave packet
+wave_func = lambda x, t: wave_shape(x - t) # wave profile
+plot(wave_func)
+```
+
+
+# Гармоническая волна
+
+```{python}
+wave_shape = lambda x: np.sin(2 * x) # harmonic wave
+wave_func = lambda x, t: wave_shape(x - t) # wave profile
+plot(wave_func)
+```
+
+# Затухающая в.
+
+```{python}
+wave_shape = lambda x: np.sin(6 * x) # harmonic wave
+wave_func = lambda x, t: wave_shape(x - t) * np.minimum(1, np.exp(-0.7*x + 2)) # exponential decay
+plot(wave_func)
+```
+
+# Стоячая в.
+```{python}
+wave_shape = lambda x: np.sin(6 * x) # harmonic wave
+wave_func = lambda x, t: 0.5 * wave_shape(x - t / 6) + 0.5 * wave_shape(-x - t / 6) # opposite phase waves
+plot(wave_func)
+```
+
+:::
+
+Для гармонической^[т.е. синосуидальной] волны с заданной частотой колебания $\omega$, распространяющейся вдоль оси $x$, аналитическое решение имеет простой вид:
+$$ \xi(x, t) = A \sin (\omega t - k x), $$
+где $k := \omega / v$  --- _волновое число_. 
+
+Более обще, _волновыми_ называют уравнения, имеющие решения схожие с (TODO), т.е. 
+$$ \xi = f(\bf r + \bf v t), $$
+где $f$ --- форма волны, $v$ --- вектор скорости. Решения такого вида могут быть получены из уравнения Шрёдингера, поэтому оно тоже называется волновым.
+
+$$\Psi(x, t) = A e^{i (k x - \omega t)}$$ {#eq-plane-wave}
+
+## Волна де Бройля
+В специальной теории относительности связь полной энергии частицы $E$ с её массой покоя $m_0$ определяется выражением:
+$$E^2 = m_0^2 c^4 + p^2 c^2,$$
+где $c$ --- скорость света, $p$ --- импульс частицы.
+
+Связь энергии фотона с постоянной Планка $h$ и длиной волны $\lambda$:
+$$E = h \nu = \dfrac{h c}{\lambda},$$
+воспользуемся этим, приняв также массу покоя фотона $m_0 = 0$, и подставив в [TODO] получим сначала
+$$\dfrac{h^2 c^2}{\lambda^2} = p^2 c^2$$
+и затем выражение, связывающее импульс фотона с длиной его волны:
+$$\lambda = \dfrac{h}{p}.$$
+
+Не смотря на то, что [TODO] выведено для фотона, Луи де Бройль (1924) использовал эту формулу для объяснения фотоэффекта, предположив, что волновыми свойствами обладают и другие частицы, и получил связь длины волны электрона с его импульсом:
+$$\lambda_e = \dfrac{h}{p},$$
+что также подтверждается серией экспериментов Дэвиссона и Джермера (1923-27). Открытие волновых свойст материи --- волн де Бройля --- позволило объяснить противоречия, возникающие при построении полуклассической Боровской модели атома (1913), стало возможно описание элементарных частиц с позиции современной квантовой механики --- в терминах волн и вероятностей.
+

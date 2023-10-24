@@ -8,8 +8,9 @@ local needsLightbox = false
 local imgCount = 0
 
 -- attributes to forward from the image to the newly created link
+local kDescription = "description"
 local kForwardedAttr = {
-  "title", "description", "desc-position", 
+  "title", kDescription, "desc-position", 
   "type", "effect", "zoomable", "draggable"
 }
 
@@ -19,6 +20,17 @@ local kGalleryPrefix = "quarto-lightbox-gallery-"
 
 -- A list of images already within links that we can use to filter
 local imagesWithinLinks = pandoc.List({})
+
+local function readAttrValue(el, attrName) 
+  if attrName == kDescription then
+    local doc = pandoc.read(el.attr.attributes[attrName])
+    local attrInlines = doc.blocks[1].content
+    return pandoc.write(pandoc.Pandoc(attrInlines), "html")
+  else 
+    return el[attrName]
+  end
+
+end
 
 return {
   {
@@ -36,7 +48,7 @@ return {
       local lbMeta = meta.lightbox
       if lbMeta ~= nil and type(lbMeta) == 'table' then
         if lbMeta[1] ~= nil then
-          if lbMeta[1].text == "auto" then
+          if lbMeta[1]['text'] == "auto" then
             auto = true
           end
         elseif lbMeta.match ~= nil and pandoc.utils.stringify(lbMeta.match) == 'auto' then
@@ -64,28 +76,30 @@ return {
         div = div:walk({
           Image = function(imgEl)
             imgCount = imgCount + 1
-            if meta == false or meta[kNoLightboxClass] == true then
+            if (type(meta) == "table" and meta[kNoLightboxClass] == true) or meta == false then
               imgEl.classes:insert(kNoLightboxClass)
             else
-              if not auto and meta and not meta[kNoLightboxClass] then
+              if not auto and ((type(meta) == "table" and not meta[kNoLightboxClass]) or meta == true) then
                 imgEl.classes:insert(kLightboxClass)
               end
-              if meta.group then
-                imgEl.attr.attributes.group = meta.group or imgEl.attr.attributes.group
-              end
-              for _, v in next, kForwardedAttr do
-                if type(meta[v]) == "table" and #meta[v] > 1 then 
-                  -- if list attributes it should be one per plot
-                  if imgCount > #meta[v] then
-                    quarto.log.warning("More plots than '" .. v .. "' passed in YAML chunk options.")
-                  else
-                    attrLb = meta[v][imgCount]
-                  end
-                else 
-                  -- Otherwise reuse the single attributes
-                  attrLb = meta[v]
+              if (type(meta) == "table") then
+                if meta.group then
+                  imgEl.attr.attributes.group = meta.group or imgEl.attr.attributes.group
                 end
-                imgEl.attr.attributes[v] = attrLb or imgEl.attr.attributes[v]
+                for _, v in next, kForwardedAttr do
+                  if type(meta[v]) == "table" and #meta[v] > 1 then 
+                    -- if list attributes it should be one per plot
+                    if imgCount > #meta[v] then
+                      quarto.log.warning("More plots than '" .. v .. "' passed in YAML chunk options.")
+                    else
+                      attrLb = meta[v][imgCount]
+                    end
+                  else 
+                    -- Otherwise reuse the single attributes
+                    attrLb = meta[v]
+                  end
+                  imgEl.attr.attributes[v] = attrLb or imgEl.attr.attributes[v]
+                end
               end
             end
             return imgEl
@@ -137,8 +151,8 @@ return {
         for i, v in ipairs(kForwardedAttr) do
           if imgEl.attr.attributes[v] ~= nil then
             -- forward the attribute
-            linkAttributes[v] = imgEl.attr.attributes[v]
-
+            linkAttributes[v] = readAttrValue(imgEl, v)
+          
             -- clear the attribute
             imgEl.attr.attributes[v] = nil
           end

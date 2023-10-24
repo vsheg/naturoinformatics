@@ -16,5 +16,10 @@ out/
 .snakemake/*
 
 /.quarto/
+computations_files/
+build/
+
+_freeze/
+_extensions/
 
 /.luarc.json
