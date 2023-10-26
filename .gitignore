@@ -1,5 +1,4 @@
 logs/
-out/
 
 .Rproj.user
 .Rhistory
@@ -9,17 +8,17 @@ out/
 *.icloud
 .DS_Store
 
-.latex/*
+.latex/
 
-.venv/*
+.venv/
 .ipynb_checkpoints/
-.snakemake/*
+.snakemake/
 
-/.quarto/
+.quarto/
 computations_files/
 build/
 
 _freeze/
 _extensions/
 
-/.luarc.json
+.luarc.json
