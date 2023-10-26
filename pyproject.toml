@@ -6,10 +6,12 @@ authors = ["Vsevolod Shegolev <v@sheg.cc>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = ">=3.11,<3.13"
 panflute = "^2.3.0"
 httpcore = "^1.0.0"
 jupyter = "^1.0.0"
+seaborn = "^0.13.0"
+sympy = "^1.12"
 
 
 [build-system]

@@ -1,0 +1,53 @@
+on:
+  workflow_dispatch:
+  push:
+    branches: main
+
+name: Quarto Publish
+
+env:
+  POETRY_VERSION: "1.6.1"
+  PYTHON_VERSION: "3.12"
+
+jobs:
+
+  render:
+    # setup
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: pipx install 'poetry==${{ env.POETRY_VERSION }}'
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "${{ env.PYTHON_VERSION }}"
+          cache: poetry
+      - uses: quarto-dev/quarto-actions/setup@v2
+      - run: make venv # install Python venv
+      - run: make extensions # install Quarto extensions
+      - run: sudo apt install ffmpeg
+
+      # render
+      - run: make build
+
+      # fix permissions, for some reason, this is important for GitHub Pages
+      - run: chmod -c -R +rX build/
+      
+      # upload
+      - uses: actions/upload-pages-artifact@v2
+        with:
+          name: github-pages
+          path: build/
+  
+  publish:
+    needs: render
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/deploy-pages@v2
+        id: deployment
+        

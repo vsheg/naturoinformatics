@@ -8,3 +8,6 @@ build: venv
 
 venv:
 	poetry install
+
+extensions:
+	quarto add quarto-ext/lightbox --no-prompt
