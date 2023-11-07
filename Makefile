@@ -1,15 +1,21 @@
+# main rules
+
 clean:
-	rm -rf build/
+	rm -rf render/
 	rm -rf computations_files/
 	rm -rf _freeze
 	rm -rf .venv
 	rm -rf .ipynb_checkpoints
-	
-build: venv extensions
+
+render:
 	poetry run quarto render .
 
-venv:
+environment: python_env quarto_env
+
+# helper rules
+
+python_env:
 	poetry install
 
-extensions:
+quarto_env:
 	quarto add quarto-ext/lightbox --no-prompt

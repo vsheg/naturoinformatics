@@ -22,21 +22,20 @@ jobs:
           python-version: "${{ env.PYTHON_VERSION }}"
           cache: poetry
       - uses: quarto-dev/quarto-actions/setup@v2
-      - run: make venv # install Python venv
-      - run: make extensions # install Quarto extensions
+      - run: make environment # reproducible environment
       - run: sudo apt install ffmpeg
 
       # render
-      - run: make build
+      - run: make render
 
       # fix permissions, for some reason, this is important for GitHub Pages
-      - run: chmod -c -R +rX build/
+      - run: chmod -c -R +rX render/
       
       # upload
       - uses: actions/upload-pages-artifact@v2
         with:
           name: github-pages
-          path: build/
+          path: render/
   
   publish:
     needs: render

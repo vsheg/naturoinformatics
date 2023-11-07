@@ -1,6 +1,6 @@
 project:
   type: book
-  output-dir: build/
+  output-dir: render/
 
 lang: ru
 
