@@ -3,7 +3,7 @@ clean:
 	rm -rf computations_files/
 	rm -rf _freeze
 	
-build: venv
+build: venv extensions
 	poetry run quarto render .
 
 venv:
