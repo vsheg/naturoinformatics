@@ -14,7 +14,6 @@ seaborn = "^0.13.0"
 sympy = "^1.12"
 pandoc-chem-struct = {git = "https://github.com/scotthartley/pandoc-chem-struct"}
 
-
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"

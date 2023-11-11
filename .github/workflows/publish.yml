@@ -17,12 +17,18 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: pipx install 'poetry==${{ env.POETRY_VERSION }}'
+      # Quarto dropped support for Pandoc filters, so we need to specify the path to
+      # a binary (pandoc-chem-struct). However, GitHub Actions doesn't create a .venv
+      # directory in the project directory, and Poetry can't recreate the environment
+      # after it's been set up. Therefore, we need to specify this setting before the
+      # venv is created.
+      - run: poetry config virtualenvs.in-project true
       - uses: actions/setup-python@v4
         with:
           python-version: "${{ env.PYTHON_VERSION }}"
           cache: poetry
       - uses: quarto-dev/quarto-actions/setup@v2
-      - run: make environment # reproducible environment
+      - run: make env # reproducible environment
       - run: sudo apt install ffmpeg
 
       # render

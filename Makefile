@@ -11,7 +11,7 @@ clean:
 render:
 	poetry run quarto render .
 
-environment: python_env quarto_env
+env: python_env quarto_env
 
 # helper rules
 
