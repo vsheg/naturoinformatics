@@ -16,10 +16,11 @@ logs/
 
 .quarto/
 computations_files/
-render/
+_site/
 
 _freeze/
 _extensions/
 
 .luarc.json
+
 /.quarto/
