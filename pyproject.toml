@@ -12,6 +12,7 @@ httpcore = "^1.0.0"
 jupyter = "^1.0.0"
 seaborn = "^0.13.0"
 sympy = "^1.12"
+pandoc-chem-struct = {git = "https://github.com/scotthartley/pandoc-chem-struct"}
 
 
 [build-system]

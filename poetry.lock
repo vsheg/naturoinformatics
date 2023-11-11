@@ -1686,6 +1686,24 @@ test = ["hypothesis (>=6.46.1)", "pytest (>=7.3.2)", "pytest-asyncio (>=0.17.0)"
 xml = ["lxml (>=4.8.0)"]
 
 [[package]]
+name = "pandoc-chem-struct"
+version = "1.0"
+description = "Interpret chemical formulas in pandoc"
+optional = false
+python-versions = ">=3"
+files = []
+develop = false
+
+[package.dependencies]
+pandocfilters = "*"
+
+[package.source]
+type = "git"
+url = "https://github.com/scotthartley/pandoc-chem-struct"
+reference = "HEAD"
+resolved_reference = "f89c2cd5230710b6efc94e3f9a8dbf228033ba3f"
+
+[[package]]
 name = "pandocfilters"
 version = "1.5.0"
 description = "Utilities for writing pandoc filters in python"
@@ -2708,4 +2726,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.11,<3.13"
-content-hash = "4860b1725dbd1a94ec919f1290a35942037f54038a06c2f55e5ea7188845b95c"
+content-hash = "756d6c7ca45f39d97ec4e7760ed30aad31e5447b22bc44a0a68581648fd1dc6e"

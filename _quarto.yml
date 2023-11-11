@@ -97,6 +97,7 @@ crossref:
 
 filters:
   - lightbox
+  - .venv/bin/pandoc-chem-struct
 
 lightbox: auto
 fig-format: svg
